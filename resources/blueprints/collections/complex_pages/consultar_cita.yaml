@@ -1,0 +1,431 @@
+title: 'Consultar cita'
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+              validate:
+                - required
+          -
+            handle: previous_page
+            field:
+              type: link
+              display: 'Página de retorno'
+              instructions: 'Página al dar clic al botón de regresar.'
+              listable: hidden
+              instructions_position: below
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: title_appointment_registered
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: 'Título cita registrada'
+              instructions: 'Título para indicar la consulta de una cita. Se muestra cuando se consulta el folio.'
+              listable: hidden
+              instructions_position: below
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: title_appointment
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: 'Título cita agendada'
+              instructions: 'Título para indicar que la cita se agendó exitosamente. Se muestra después de pasar el proceso de agendar cita.'
+              listable: hidden
+              instructions_position: below
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: text_names
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: 'Texto nombres'
+              instructions: 'Texto para indicar a qué nombre fue registrada la cita.'
+              listable: hidden
+              instructions_position: below
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: text_folio
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: 'Texto folio'
+              instructions: 'Texto para indicar el folio de la cita.'
+              listable: hidden
+              instructions_position: below
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: text_datetime
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: 'Texto fecha y hora'
+              instructions: 'Texto para indicar la fecha y hora de la cita.'
+              listable: hidden
+              instructions_position: below
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: text_email
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: 'Texto de correo'
+              instructions: 'Texto para indicar el correo registrado de la cita.'
+              listable: hidden
+              instructions_position: below
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: text_observations
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: 'Texto observaciones'
+              instructions: 'Texto de las observaciones o notas del usuario respecto de la cita.'
+              listable: hidden
+              instructions_position: below
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: text_directions
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: 'Texto dirección de la oficina'
+              instructions: 'Texto que indica la dirección de la oficina de la cita.'
+              listable: hidden
+              instructions_position: below
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: text_map
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: 'Texto mapa de la oficina'
+              instructions: 'Texto que indica el mapa de la oficina de la cita.'
+              listable: hidden
+              instructions_position: below
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+  error_messages:
+    display: 'Mensajes de error'
+    sections:
+      -
+        display: 'Sección de mensaje de errores'
+        instructions: 'Para indicar al usuario sobre un error. En caso de dejar vacío se manda los mensajes por defecto.'
+        fields:
+          -
+            handle: folio_not_found
+            field:
+              buttons:
+                - h2
+                - h3
+                - bold
+                - italic
+                - unorderedlist
+                - orderedlist
+                - removeformat
+                - quote
+                - anchor
+                - image
+                - table
+                - underline
+              smart_typography: false
+              save_html: true
+              inline: false
+              toolbar_mode: fixed
+              reading_time: false
+              word_count: false
+              fullscreen: true
+              allow_source: true
+              enable_input_rules: true
+              enable_paste_rules: true
+              remove_empty_nodes: false
+              antlers: true
+              link_noopener: false
+              link_noreferrer: false
+              target_blank: false
+              always_show_set_button: false
+              collapse: false
+              previews: true
+              type: bard
+              display: 'Folio no encontrado'
+              instructions: 'Mensaje para indicar que no se encontró el folio consultado.'
+              listable: hidden
+              instructions_position: below
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+              placeholder: 'Folio no encontrado. <br> Por favor, revise su folio e intente nuevamente.'
+          -
+            handle: error_appointment_general
+            field:
+              buttons:
+                - h2
+                - h3
+                - bold
+                - italic
+                - unorderedlist
+                - orderedlist
+                - removeformat
+                - quote
+                - anchor
+                - image
+                - table
+                - underline
+              smart_typography: false
+              save_html: true
+              inline: false
+              toolbar_mode: fixed
+              reading_time: false
+              word_count: false
+              fullscreen: true
+              allow_source: true
+              enable_input_rules: true
+              enable_paste_rules: true
+              remove_empty_nodes: false
+              antlers: true
+              link_noopener: false
+              link_noreferrer: false
+              target_blank: false
+              always_show_set_button: false
+              collapse: false
+              previews: true
+              type: bard
+              display: 'Error al generar la cita'
+              instructions: 'Mensaje para indicar que hubo un error al generar la cita.'
+              listable: hidden
+              instructions_position: below
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+              placeholder: 'Error al generar su cita. <br> No se pudo generar su cita, intente agendar una cita nuevamente por favor.'
+          -
+            handle: error_not_available
+            field:
+              buttons:
+                - h2
+                - h3
+                - bold
+                - italic
+                - unorderedlist
+                - orderedlist
+                - removeformat
+                - quote
+                - anchor
+                - image
+                - table
+                - underline
+              smart_typography: false
+              save_html: true
+              inline: false
+              toolbar_mode: fixed
+              reading_time: false
+              word_count: false
+              fullscreen: true
+              allow_source: true
+              enable_input_rules: true
+              enable_paste_rules: true
+              remove_empty_nodes: false
+              antlers: true
+              link_noopener: false
+              link_noreferrer: false
+              target_blank: false
+              always_show_set_button: false
+              collapse: false
+              previews: true
+              type: bard
+              display: 'Error horario no disponilble'
+              instructions: 'Mensaje para indicar que el horario en la fecha solicitada ya no está disponible.'
+              listable: hidden
+              instructions_position: below
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+              placeholder: 'Error al generar su cita. <br> La hora no se encuentra disponible, vuelva a intentarlo por favor.'
+          -
+            handle: error_appointment_duplicated
+            field:
+              buttons:
+                - h2
+                - h3
+                - bold
+                - italic
+                - unorderedlist
+                - orderedlist
+                - removeformat
+                - quote
+                - anchor
+                - image
+                - table
+                - underline
+              smart_typography: false
+              save_html: true
+              inline: false
+              toolbar_mode: fixed
+              reading_time: false
+              word_count: false
+              fullscreen: true
+              allow_source: true
+              enable_input_rules: true
+              enable_paste_rules: true
+              remove_empty_nodes: false
+              antlers: true
+              link_noopener: false
+              link_noreferrer: false
+              target_blank: false
+              always_show_set_button: false
+              collapse: false
+              previews: true
+              type: bard
+              display: 'Error cita duplicada'
+              instructions: 'Mensaje para indicar que ya existe una cita generada para ese correo.'
+              listable: hidden
+              instructions_position: below
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+              placeholder: 'Error al generar su cita. <br> Ya cuenta con un folio. Si necesita una nueva cita de clic en el botón de "Consultar cita" para consultar su folio anterior, después de clic en "Cancelar cita" para agendar una nueva.'
+          -
+            handle: error_folio
+            field:
+              buttons:
+                - h2
+                - h3
+                - bold
+                - italic
+                - unorderedlist
+                - orderedlist
+                - removeformat
+                - quote
+                - anchor
+                - image
+                - table
+                - underline
+              smart_typography: false
+              save_html: true
+              inline: false
+              toolbar_mode: fixed
+              reading_time: false
+              word_count: false
+              fullscreen: true
+              allow_source: true
+              enable_input_rules: true
+              enable_paste_rules: true
+              remove_empty_nodes: false
+              antlers: true
+              link_noopener: false
+              link_noreferrer: false
+              target_blank: false
+              always_show_set_button: false
+              collapse: false
+              previews: true
+              type: bard
+              display: 'Error al consultar el folio'
+              instructions: 'Mensaje para indicar que no se pudo consultar el folio.'
+              listable: hidden
+              instructions_position: below
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+              placeholder: 'Error al procesar el folio.<br> Por favor, revise su folio e intente nuevamente. Si el error persiste contacte al centro de conciliación.'
+          -
+            handle: error_email
+            field:
+              buttons:
+                - h2
+                - h3
+                - bold
+                - italic
+                - unorderedlist
+                - orderedlist
+                - removeformat
+                - quote
+                - anchor
+                - image
+                - table
+                - underline
+              smart_typography: false
+              save_html: true
+              inline: false
+              toolbar_mode: fixed
+              reading_time: false
+              word_count: false
+              fullscreen: true
+              allow_source: true
+              enable_input_rules: true
+              enable_paste_rules: true
+              remove_empty_nodes: false
+              antlers: true
+              link_noopener: false
+              link_noreferrer: false
+              target_blank: false
+              always_show_set_button: false
+              collapse: false
+              previews: true
+              type: bard
+              display: 'Correo no enviado'
+              instructions: 'Mensaje para indicar que el correo no pudo ser enviado pero si se pudo generar la cita, principalmente es por un error al escribir el correo o no existe el correo. Se le invita en guardar el folio para evitar ser extraviado.'
+              listable: hidden
+              instructions_position: below
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+              placeholder: 'No se pudo enviar al correo registrado. Asegúrese de guardar el folio para evitar perderlo.'
+  sidebar:
+    display: Sidebar
+    sections:
+      -
+        fields:
+          -
+            handle: slug
+            field:
+              type: slug
+              localizable: true
+              validate: 'max:200'
+          -
+            handle: template
+            field:
+              hide_partials: true
+              blueprint: false
+              folder: complex_pages
+              type: template
+              display: Plantilla
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false

@@ -1,0 +1,50 @@
+<nav class="nav navbar navbar-expand-xl navbar-light iq-navbar navbar_border">
+   <div class="container-fluid navbar-inner">
+       <button data-trigger="navbar_main" class="d-xl-none btn btn-primary rounded-pill p-1 pt-0 btnCMenu" type="button">
+           <span class="btnmenu"> menú </span>
+       </button>
+       <div class="col-md-2 navbar-brand d-flex justify-content-center">
+           <a href="{{ homepage }}" class="d-flex">
+               <svg width="250" height="100" xmlns="http://www.w3.org/2000/svg">
+                   <image href="/assets/contenidos/logo.png" height="100" width="250" />
+               </svg>
+           </a>
+       </div>
+
+       <nav id="navbar_main" class="mobile-offcanvas nav navbar navbar-expand-xl hover-nav horizontal-nav mx-md-auto  col-md-7 mh_navbar_ccl pb-0">
+           <div class="container-fluid d-flex justify-content-center">
+              <div class="offcanvas-header">
+                 <div class="navbar-brand">
+                    <svg width="180"  xmlns="http://www.w3.org/2000/svg">
+                       <image href="/assets/contenidos/logo_color.svg"  width="180" />
+                    </svg>             
+                 </div>
+                 <button class="btn-close float-end"></button>
+              </div>
+              <ul class="navbar-nav op-menu">                                    
+                {{ nav:collection:pages include_home="true"  max_depth="1" scope="tag" is_hidden:isnt="true" limit="3" }}
+                <li class="nav-item {{ if is_current or is_parent }} active {{ /if }} ">
+                    <a class="nav-link text-center" href="{{ url }}">
+                        <span class="d-md-block d-lg-block"> {{ tag:nav_title or title  | substr(0, 8) }} </span>  {{ tag:nav_title or title  | substr(8, ) }} 
+                    </a>
+                </li>               
+                {{ /nav:collection:pages}}
+              </ul>
+           </div>
+        </nav>
+       <!-- <div class="collapse navbar-collapse col-md-2" id="navbarSupportedContent">-->
+        <div class="col-md-2" id="navbarSupportedContent">
+           <ul class="navbar-nav ms-auto mb-2 mt-1 mb-lg-0 ">
+               <li class="nav-item dropdown">
+                    <form class="d-flex formSearch" action="/search">
+                        <input class="form-control" type="search" placeholder="Buscar" id="input_search" name="q" aria-label="Search">
+                        <button class="btn btn-outline-dark bntSearchnew" type="submit">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                    </form>
+               </li>
+           </ul>
+       </div>
+
+   </div>
+</nav>

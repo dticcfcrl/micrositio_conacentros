@@ -1,0 +1,435 @@
+title: 'Agendar cita'
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+              validate:
+                - required
+              display: 'Título de la página'
+              instructions: 'Título principal para la página.'
+              instructions_position: below
+              listable: hidden
+              visibility: visible
+              replicator_preview: true
+              input_type: text
+              antlers: false
+              hide_display: false
+          -
+            handle: previous_page
+            field:
+              type: link
+              display: 'Página de retorno'
+              instructions: 'Página para el botón de regreso.'
+              listable: hidden
+              instructions_position: below
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: title_colors
+            field:
+              type: text
+              validate:
+                - required
+              display: 'Título para código de colores'
+              instructions: 'Es el título que aparecerá para los códigos de colores.'
+              instructions_position: below
+              listable: hidden
+              visibility: visible
+              replicator_preview: true
+              input_type: text
+              antlers: false
+              hide_display: false
+          -
+            handle: title_state
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: 'Título entidad federativa'
+              instructions: 'Título para la lista de las entidades federativas (estados de la república).'
+              listable: hidden
+              instructions_position: below
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: title_office
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: 'Título oficinas'
+              instructions: 'Título de la lista de los centros de conciliación laboral tanto federal y estatal.'
+              listable: hidden
+              instructions_position: below
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: title_date
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: 'Título calendario de citas'
+              instructions: 'Título para indicar las fechas disponibles a agendar.'
+              listable: hidden
+              instructions_position: below
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: title_available
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: 'Título horarios disponibles'
+              instructions: 'Título para indicar la disponibilidad de horarios en el centro de conciliación.'
+              listable: hidden
+              instructions_position: below
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: text_email
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: 'Título correo electrónico'
+              instructions: 'Título para indicar que ingresen el correo electrónico.'
+              listable: hidden
+              instructions_position: below
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: text_telephone
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: 'Título teléfono'
+              instructions: 'Título para indicar que ingresen el teléfono.'
+              listable: hidden
+              instructions_position: below
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: text_names
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: 'Título nombres'
+              instructions: 'Título para indicar que ingresen el nombre o nombres.'
+              listable: hidden
+              instructions_position: below
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: text_lastname
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: 'Título apellidos'
+              instructions: 'Título para indicar que ingresen sus apellidos.'
+              listable: hidden
+              instructions_position: below
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: text_observations
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: 'Título observaciones'
+              instructions: 'Título para indicar que ingresen las observaciones.'
+              listable: hidden
+              instructions_position: below
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: text_captcha
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: 'Título captcha'
+              instructions: 'Título para la sección de captcha.'
+              listable: hidden
+              instructions_position: below
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: privacy_terms_text
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: 'Título aviso de privacidad'
+              instructions: 'Texto para indicar que se acepta el aviso de privacidad para agendar la cita.'
+              listable: hidden
+              instructions_position: below
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: privacy_terms
+            field:
+              type: link
+              display: 'Aviso de privacidad'
+              instructions: 'Página para mostrar el aviso de privacidad de la página.'
+              listable: hidden
+              instructions_position: below
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+  modal_confirmation:
+    display: 'Contenido modal confirmación'
+    sections:
+      -
+        display: 'Confirmación de cita'
+        instructions: 'Pantalla emergente para confirmar cita'
+        fields:
+          -
+            handle: title_confirmation
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: 'Título confirmación'
+              listable: hidden
+              instructions_position: below
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+              instructions: 'Título del modal para la confirmación de datos'
+          -
+            handle: text_confirmation_names
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: 'Texto nombre'
+              instructions: 'Texto para indicar el campo del nombre ingresado.'
+              listable: hidden
+              instructions_position: below
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: text_confirmation_lastname
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: 'Texto apellidos'
+              instructions: 'Texto para indicar el campo del apellido ingresado.'
+              listable: hidden
+              instructions_position: below
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: text_confirmation_date
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: 'Texto fecha'
+              instructions: 'Texto para indicar el campo de la fecha ingresado.'
+              listable: hidden
+              instructions_position: below
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: text_confirmation_time
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: 'Texto horario'
+              instructions: 'Texto para indicar el campo del horario ingresado.'
+              listable: hidden
+              instructions_position: below
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: text_confirmation_state
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: 'Texto entidad federativa'
+              instructions: 'Texto para indicar el campo del nombre ingresado.'
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: text_confirmation_office
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: 'Texto oficina'
+              instructions: 'Texto para indicar el campo de la oficina ingresada.'
+              listable: hidden
+              instructions_position: below
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: text_confirmation_email
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: 'Texto correo electrónico'
+              instructions: 'Texto para indicar el campo del correo ingresado.'
+              listable: hidden
+              instructions_position: below
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: text_confirmation_telephone
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: 'Texto teléfono'
+              instructions: 'Texto para indicar el campo del teléfono ingresado.'
+              listable: hidden
+              instructions_position: below
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: text_confirmation_observations
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: 'Texto observaciones'
+              instructions: 'Texto para indicar el campo de observaciones ingresadas.'
+              listable: hidden
+              instructions_position: below
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+  redirection_modal:
+    display: 'Modal de redirección'
+    sections:
+      -
+        display: Campos
+        fields:
+          -
+            handle: redirect_title
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: 'Título del modal'
+              instructions: 'Título para mostrar en el modal.'
+              listable: hidden
+              instructions_position: below
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: redirect_text_page
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: 'Texto para páginas'
+              instructions: 'Instrucciones para indicar que se deben de redireccionarse a la página del centro.'
+              listable: hidden
+              instructions_position: below
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: redirect_text_phone
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: 'Texto para teléfonos'
+              instructions: 'Instrucciones para indicar que se deben comunicarse al teléfono de contacto del centro.'
+              listable: hidden
+              instructions_position: below
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: redirect_text_email
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: 'Texto para correos'
+              instructions: 'Instrucciones para indicar que se deben mandar un correo a la dirección electrónica (correo) del centro.'
+              listable: hidden
+              instructions_position: below
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: redirect_text_center
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: 'Texto para centro'
+              instructions: 'Texto para indicar el centro seleccionado por el usuario.'
+              listable: hidden
+              instructions_position: below
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+  sidebar:
+    display: Sidebar
+    sections:
+      -
+        fields:
+          -
+            handle: slug
+            field:
+              type: slug
+              localizable: true
+              validate: 'max:200'
+          -
+            handle: template
+            field:
+              hide_partials: true
+              blueprint: false
+              type: template
+              display: Plantilla
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+              folder: complex_pages

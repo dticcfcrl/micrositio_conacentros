@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Expired</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 50px;
+        }
+
+        .content {
+            display: inline-block;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 48px;
+            margin: 0;
+        }
+
+        p {
+            font-size: 18px;
+            margin: 10px 0 20px;
+        }
+    </style>
+    <script>
+        // Recarga automática de la página después de 5 segundos
+        setTimeout(function() {
+            window.location.href = "/";
+        }, 5000); // Recarga la página después de 5 segundos
+    </script>
+</head>
+<body>
+    <div class="content">
+        <h1>419 | Página Expirada</h1>
+        <p>La página ha expirado. Se recargará automáticamente en unos momentos a la página principal.</p>
+        <p>Si no se redirige automáticamente, <a href="/">clic aquí</a></p>
+    </div>
+</body>
+</html>

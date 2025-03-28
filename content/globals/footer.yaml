@@ -1,0 +1,47 @@
+title: Footer
+data:
+  logo_description:
+    image_logo: contenidos/logo_blanco.svg
+    text_message:
+      -
+        type: paragraph
+        content:
+          -
+            type: text
+            text: 'Somos una red que coordina esfuerzos, comparte buenas prácticas y promueve la cultura de la conciliación laboral'
+  footer_menu:
+    title_menu_footer: null
+    footer_menu_content:
+      -
+        id: lyggt48q
+        title_link: 'Consulta nuestro Aviso de Privacidad'
+        type: link
+        enabled: true
+        link_item: 'entry::1d1e7501-2705-48be-9199-bc6984d78874'
+  menu_contact:
+    title_contact: null
+    text_contact: '<p></p>'
+    email: null
+    telephone_number: null
+  menu_social_media:
+    title_social_media: null
+    footer_menu_content:
+      -
+        id: lv65zlpm
+        title_item: Facebook
+        type: link
+        enabled: false
+      -
+        id: lv65zvd6
+        title_item: Instagram
+        type: link
+        enabled: false
+      -
+        id: lv66004p
+        title_item: X
+        type: link
+        enabled: false
+  menu_mail_list:
+    title_mail_list: 'Suscríbete para recibir mayor información'
+    placeholder: 'Ingresa tu correo'
+    text_button: Enviar

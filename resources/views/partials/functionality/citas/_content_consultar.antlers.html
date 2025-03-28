@@ -1,0 +1,315 @@
+{{ if { post:folio } }}
+<section>
+    <div class="container">
+        {{ appointments:consultFolio folio="{ post:folio }" }}
+            {{ if error_codigo == 1 }}
+            <div class="alert alert-danger my-3 text-center" role="alert">
+                {{ if folio_not_found | trim | strip_tags != "" }}
+                    {{ folio_not_found | nl2br }}
+                {{ else }}
+                    Folio no encontrado.
+                    <br>
+                    Por favor, revise su folio e intente nuevamente.
+                {{ /if }}
+            </div>
+
+            {{ partial src="functionality/citas/forms/_form_consult" }}
+
+            {{ elseif error_codigo == 2 }}
+                <div class="alert alert-danger my-3 text-center" role="alert">
+                    {{ if error_folio | trim | strip_tags != "" }}
+                        {{ error_folio | nl2br }}
+                    {{ else }}
+                        Error al procesar el folio.
+                        <br>
+                        Por favor, revise su folio e intente nuevamente. Si el error persiste contacte al centro de conciliación. ZXC
+                    {{ /if }}
+                </div>
+                {{ partial src="functionality/citas/forms/_form_consult" }}
+            
+            {{ elseif error_codigo == 3 }}
+                <div class="alert alert-danger my-3 text-center" role="alert">
+                    Error al generar su cita
+                    <br>
+                    {{ mensaje }}
+                </div>
+            {{ else }}
+            <div class="card headerCard headerCardL">
+                <div class="card-header py-2 my-2 px-1 text-center">
+                    <div class="row">
+                        <div class="col-12 col-md-2">
+                            <a class="btn btn-primary btn-primary-ccls rounded-pill" href='{{ previous_page:url }}'>Regresar</a>
+                        </div>
+                        <div class="col-12 col-md-8">
+                            <h3 class="section-title dorada">{{ if bandera_consulta }}{{ title_appointment_registered }}{{ else }}{{ title_appointment }}{{ /if }}</h3>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <div class="card-body">
+                    <div class="row justify-content-center w-100 col-12">
+                        <div class="col-12 col-sm-6 col-lg-12">
+
+                            <div class="row">
+                                {{ if not bandera_consulta }}
+                                <div class="row form-group col-12 px-0 text-center" id="step0">
+                                    <label class="d-block dorada my-2 mb-5">
+                                        <h4 class="dorada">
+                                            <svg width="100px" height="100px" viewBox="0 0 512 512"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <defs>
+                                                    <style>
+                                                        .cls-1 {
+                                                            fill: none;
+                                                            stroke: #C04F15;
+                                                            stroke-linecap: round;
+                                                            stroke-linejoin: round;
+                                                            stroke-width: 20px;
+                                                        }
+                                                    </style>
+                                                </defs>
+                                                <circle class="cls-1" cx="256" cy="256" r="246"></circle>
+                                                <polyline class="cls-1" points="115.54 268.77 200.67 353.9 396.46 158.1">
+                                                </polyline>
+                                            </svg>
+                                        </h4>
+                                    </label>
+                                </div>
+                                {{ /if }}
+
+                                {{ if post:mensaje & post:error_codigo == 0 }}
+                                    <div class="alert alert-success my-3 text-center container" role="alert">
+                                        <p>{{ post:mensaje | nl2br }}</p>
+                                    </div>
+                                {{ /if }}
+
+                                {{ if post:error_codigo == 20 }}
+                                    <div class="alert alert-warning my-3 text-center container" role="alert">
+                                        {{ if (error_email | trim | strip_tags != "") & folio_informacion:correo_reenviado == 0 }}
+                                            {{ error_email | nl2br }}
+                                        {{ else }}
+                                            <p>{{ post:mensaje | nl2br }}</p>
+                                        {{ /if }}
+
+                                        {{ if folio_informacion:correo_enviado == 0 & folio_informacion:correo_reenviado == 0 }}
+                                            <button type="button" class="btn btn-primary btn-primary-ccls rounded-pill" data-bs-toggle="modal" data-bs-target="#reenviarCorreoModal">
+                                                Cambiar correo
+                                            </button>
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="reenviarCorreoModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="reenviarCorreoModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="reenviarCorreoModalLabel">Cambiar correo</h5>
+                                                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form action="{{ route:reenviarcorreopublic }}" method="POST" id="form_cita">
+                                                                <input type="hidden" name="_token" value="{{ csrf_token }}" />
+                                                                <div class="form-group text-start">
+                                                                    <label class="text-secondary" for="cclCorreo">Correo</label>
+                                                                    <input type="email" class="form-control" id="cclCorreo" name="correo" required>
+                                                                </div>
+                                                                <input id="folio" name="folio" type="hidden" value="{{ post:folio }}"/>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary btn-info-ccls rounded-pill" data-bs-dismiss="modal">Cancelar</button>
+                                                                    <button type="submit" class="btn btn-primary btn-primary-ccls rounded-pill">Confirmar</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {{ /if }}
+                                    </div>
+                                {{ /if }}
+
+                                <div class="col-lg-6 col-md-12 col-sm-12">
+                                    <div class="row form-group col-12 px-0 " id="step1">
+                                        <div class=" col-12">
+                                            <label class="d-block dorada my-2">
+                                                <h4 class=""> {{ text_names }}: </h4>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="row form-group col-12 px-0 " id="step2">
+                                        <div class=" col-12">
+                                            <label class="d-block dorada my-2">
+                                                <h4 class="dorada"> {{ folio_informacion:nombre | title }} {{
+                                                    folio_informacion:apellidos | title }} </h4>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="row form-group col-12 px-0 " id="step1">
+                                        <div class=" col-12">
+                                            <label class="d-block dorada my-2">
+                                                <h4 class=""> {{ text_folio }}: </h4>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="row form-group col-12 px-0 " id="step2">
+                                        <div class=" col-12">
+                                            <label class="d-block dorada my-2">
+                                                <h4 class="dorada" id="_cclsFolio"> {{ folio_informacion:cita_folio }} </h4>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="row form-group col-12 px-0 " id="step1">
+                                        <div class=" col-12">
+                                            <label class="d-block dorada my-2">
+                                                <h4 class=""> {{ text_datetime }}: </h4>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="row form-group col-12 px-0 " id="step2">
+                                        <div class=" col-12">
+                                            <label class="d-block dorada my-2">
+                                                <h4 class="dorada"> {{ folio_informacion:cita_fecha }} a las {{
+                                                    folio_informacion:cita_hora format="H:i" }} horas</h4>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="row form-group col-12 px-0 " id="step1">
+                                        <div class=" col-12">
+                                            <label class="d-block dorada my-2">
+                                                <h4 class=""> Correo registrado: </h4>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="row form-group col-12 px-0 " id="step2">
+                                        <div class=" col-12">
+                                            <label class="d-block dorada my-2">
+                                                <h4 class="dorada"> {{ folio_informacion:correo }} </h4>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="row form-group col-12 px-0 " id="step1">
+                                        <div class=" col-12">
+                                            <label class="d-block dorada my-2">
+                                                <h4 class=""> {{ text_observations }}: </h4>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="row form-group col-12 px-0 " id="step2">
+                                        <div class=" col-12">
+                                            <label class="d-block dorada my-2">
+                                                {{ if folio_informacion:observaciones }}
+                                                    <h4 class="dorada"> {{ folio_informacion:observaciones }} </h4>
+                                                {{ else }}
+                                                    <h4 class="dorada"> - </h4>
+                                                {{ /if }}
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    {{ if bandera_consulta }}
+                                    <hr>
+                                    <div class="text-center">
+                                        {{ if folio_informacion:status == 1 && folio_informacion:status_conciliador == '1' }}
+                                            <button type="button" class="btn btn-primary btn-primary-ccls rounded-pill" disabled="true">Cita atendida</button>
+                                        {{ elseif folio_informacion:status == 0 }}
+                                            <button type="button" class="btn btn-primary btn-primary-ccls rounded-pill" disabled="true">Cita cancelada</button>
+                                        {{ else }}
+                                            <button type="button" class="btn btn-primary btn-primary-ccls rounded-pill"
+                                                id="_btnCancelarCita" onclick="cancelarCita()">Cancelar cita</button>
+        
+                                            <button type="button" class="btn btn-primary btn-primary-ccls rounded-pill"
+                                                id="_btnCitaCancelada" disabled="true" style="display: none">Cita cancelada</button>
+                                        {{ /if }}
+                                    </div>
+                                    {{ /if }}
+                                </div>
+                                    <div class="col-lg-6 col-md-12 col-sm-12">
+
+                                        <div class="row form-group col-12 px-0 " id="step1">
+                                            <div class=" col-12">
+                                                <label class="d-block dorada my-2">
+                                                    <h4 class=""> {{ text_directions }}: </h4>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="row form-group col-12 px-0 " id="step2">
+                                            <div class=" col-12">
+                                                <label class="d-block dorada my-2">
+                                                    <h4 class="dorada"> {{ oficina:direccion }} </h4>
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="row form-group col-12 px-0 " id="step1">                                                              
+                                            <div class="col-12 mapOpenStreetMap mt-5 justify-content-center w-100 sticky-top"  >
+                                                <div class="form-group col-12">
+                                                    <label class="d-block dorada my-2"> 
+                                                        <h4 class=""> {{ text_map }}: </h4>
+                                                    </label>
+                                                    <div id="map-container" style="height:400px;">
+                                                    </div>                                                                                                                                                                                  
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            {{ partial src="functionality/citas/_scripts_consultar_mapa" }}
+            {{ /if }}
+        
+        {{ /appointments:consultFolio }}
+    </div>
+</section>
+
+{{ else }}
+    {{ if post:error_codigo == 10 }}
+        <div class="alert alert-danger my-3 text-center container" role="alert">
+            {{ if error_appointment_duplicated | trim | strip_tags != "" }}
+                {{ error_appointment_duplicated | nl2br }}
+            {{ else }}
+                Error al generar su cita.
+                <br>
+                <p>{{ post:mensaje | markdown }}</p>
+            {{ /if }}
+        </div>
+        <div class="text-center">
+            <a class="btn  btn-secondary-ccls rounded-pill" href='{{ previous_page:url }}'>Regresar al menú</a>
+            <a class="btn btn-primary btn-primary-ccls rounded-pill" href='{{ currente_page }}'>Consultar cita</a>
+        </div>
+    {{ elseif post:error_codigo == 11 }}
+        <div class="alert alert-danger my-3 text-center container" role="alert">
+            {{ if error_appointment_general | trim | strip_tags != "" }}
+                {{ error_appointment_general | nl2br }}
+            {{ else }}
+                Error al generar su cita.
+                <br>
+                <p>{{ post:mensaje | markdown }}</p>
+            {{ /if }}
+        </div>
+        <div class="text-center">
+            <a class="btn  btn-secondary-ccls rounded-pill a" href='{{ previous_page:url }}'>Regresar al menú</a>
+        </div>
+    {{ elseif post:error_codigo == 12 }}
+        <div class="alert alert-danger my-3 text-center container" role="alert">
+            {{ if error_not_available | trim | strip_tags != "" }}
+                {{ error_not_available | nl2br }}
+            {{ else }}
+                Error al generar su cita.
+                <br>
+                <p>{{ post:mensaje | markdown }}</p>
+            {{ /if }}
+        </div>
+        <div class="text-center">
+            <a class="btn btn-secondary-ccls rounded-pill" href='{{ previous_page:url }}'>Regresar al menú</a>
+            <a class="btn btn-primary btn-primary-ccls rounded-pill" href='agendar-cita'>Agendar cita</a>
+        </div>
+    {{ else }}
+        {{ partial src="functionality/citas/forms/_form_consult" }}
+    {{ /if }}
+
+{{ /if }}

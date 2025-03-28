@@ -1,0 +1,523 @@
+<section>
+    <div class="container">
+        <div class="card headerCard headerCardL">
+            <div class="card-header py-2 px-1 text-center sticky-top">
+                <div class="row">
+
+                    <div class="col-md-4">&nbsp;
+                        <a href="{{ previous_page:url }}" class="btn btn-primary btn-primary-ccls rounded-pill">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-chevron-left" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
+                            </svg>
+                            Regresar
+                        </a>
+
+                    </div>
+                    <div class="col-md-4">
+                        <h3 class="section-title my-2 dorada">{{ title }}</h3>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <svg width="32" height="32px" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <rect width="24" height="24" fill="white" />
+                            <circle cx="12" cy="12" r="9" stroke="#000000" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                            <path d="M12 6V12H6" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <h3 class="btn btn-secondary btn-info-ccls rounded-pill" id="_cclTimer" style="cursor:auto" >
+                        </h3>
+                    </div>
+                </div>
+                <hr>
+            </div>
+
+            <div class="card-body pt-0">
+                <form action="{{ route:guardarcitaregistradapublic }}" method="POST" id="form_cita">
+                    <input type="hidden" name="_token" value="{{ csrf_token }}" />
+                    <div class="row justify-content-center w-100 col-12">
+                        <div class="container col-md-12">
+                            <div class="row mb-3">
+                                <h3 class="section-title my-2 dorada text-center">{{ title_colors }}</h3>
+                                <div class="col-md-4 my-2"><span style="background-color: #B3D9B3; border: 1px solid black">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Alta disponibilidad</div>
+                                <div class="col-md-4 my-2"><span style="background-color: #FFFFCF; border: 1px solid black">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Media disponibilidad</div>
+                                <div class="col-md-4 my-2"><span style="background-color: #FFB9B9; border: 1px solid black">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Baja disponibilidad</div>
+                                <div class="col-md-4 my-2"><span style="background-color: #EDEDED; border: 1px solid black">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Sin disponibilidad</div>                      
+                                <div class="col-md-4 my-2"><span style="background-color: #afc8ea ; border: 1px solid black">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Día actual</div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="col-12 col-sm-6 col-lg-12">
+                            <div class="row">
+                                <div class="row form-group col-12 px-0 " id="step1">
+                                    <div class=" col-lg-6 col-md-12 col-sm-12">
+                                        <label for="cclEstados " class="d-block dorada my-2">
+                                            <h4 class="dorada"> {{ title_state }}: </h4>
+                                        </label>
+                                        
+                                        
+                                        
+                                        <select name="cclEstados" id="_cclEstados" class="col-12 form-select mb-3"
+                                            onchange="obtenerCcls(this,1), habilitarAgenda()">
+                                            
+                                            <option> Seleccione una entidad </option>                                            
+                                            {{ appointments:states }}
+                                                <option value="{{ nombre }}">{{ nombre }} </option>
+                                            {{ /appointments:states }}
+                                        </select>
+                                        
+                                    </div>
+
+                                    <div class=" col-lg-6 col-md-12 col-sm-12">
+                                        <label for="cclOficina " class="d-block dorada my-2">
+                                            <h4 class="dorada"> {{ title_office }}: </h4>
+                                        </label>
+                                        <select name="cclOficinas" id="_cclOficinas" class="col-12 form-select mb-3"
+                                            onchange="limpiarCclsHorarios('Limpiar horas'), obtenerCclsFechas(this)">
+                                            <option> Seleccione una oficina </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="row form-group col-12 px-0 " id="step5">
+                                    <div class="col-lg-6 col-md-12 col-sm-12">
+                                        <div class="row">
+                                            <label for="cclFecha " class="d-block dorada my-2">
+                                                <h4 class="dorada"> {{ title_date }}: </h4>
+                                            </label>
+                                            <div id='calendar'></div>
+                                            <input id="_cclFecha" name="cclFecha" type="hidden" value="" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6 col-md-12 col-sm-12">
+                                        <div class="row">
+
+                                            <label for="_cclHora " class="d-block dorada my-2">
+                                                <h4 class="dorada"> {{ title_available }}: </h4>
+                                            </label>
+                                            <div class="text-center horas-disponibles" id="_cclHoraButton"></div>
+                                            
+                                            <div id="_cclConciliador"></div>
+
+                                        </div>
+
+                                        <input type="hidden" name="cclHora" id="_cclHora_" value="">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id='continuarCita'>
+                                <p>Campos requeridos<span class="required">*</span></p>
+                                <div class="row">
+                                    <div class="row form-group col-12 px-0 " id="step3">
+                                        <div class="col-lg-6 col-md-12 col-sm-12">
+                                            <label for="cclCorreo " class="d-block dorada my-2">
+                                                <h4 class="dorada"> {{ text_email }}:<span class="required">*</span> <span class="text-danger fs-5"
+                                                        id="_cclCorreoRequerido"></span></h4>
+                                            </label>
+                                            <div class="input-group has-validation">
+                                                <input type="text" name="cclCorreo" class="form-control mb-3"
+                                                    id="_cclCorreo" placeholder="micorreo@midominio.com" maxlength="50">
+                                                <div class="invalid-feedback">
+                                                    Ingrese correo electrónico
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6 col-md-12 col-sm-12">
+                                            <label for="cclsCelular " class="d-block dorada my-2">
+                                                <h4 class="dorada"> {{ text_telephone }}: <span class="text-danger fs-5"
+                                                        id="_cclNumeroRequerido"></span></h4>
+                                            </label>
+                                            <div class="input-group has-validation">
+                                                <input type="text" class="form-control mb-3" name="cclCelular"
+                                                    id="_cclCelular" maxlength="10" placeholder="Ingrese su teléfono">
+                                                <div class="invalid-feedback">
+                                                    Ingrese número celular
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="row form-group col-12 px-0 " id="step3">
+                                        <div class="col-lg-6 col-md-12 col-sm-12">
+                                            <label for="cclNombre" class="d-block dorada my-2">
+                                                <h4 class="dorada"> {{ text_names }}:<span class="required">*</span> <span class="text-danger fs-5"
+                                                        id="_cclNombreRequerido"></span></h4>
+                                            </label>
+                                            <div class="input-group has-validation">
+                                                <input type="text" class="form-control mb-3" name="cclNombre"
+                                                    id="_cclNombre" placeholder="" maxlength="50">
+                                                <div class="invalid-feedback">
+                                                    Ingrese nombre(s)
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6 col-md-12 col-sm-12">
+                                            <label for="cclApellidos " class="d-block dorada my-2">
+                                                <h4 class="dorada"> {{ text_lastname }}:<span class="required">*</span> <span class="text-danger fs-5"
+                                                        id="_cclApellidosRequerido"></span></h4>
+                                            </label>
+                                            <div class="input-group has-validation">
+                                                <input type="text" class="form-control mb-3" name="cclApellidos"
+                                                    id="_cclApellidos" placeholder="" maxlength="50">
+                                                <div class="invalid-feedback">
+                                                    Ingrese apellidos
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="row form-group col-12 px-0 " id="step5">
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <label for="cclObservaciones " class="d-block dorada my-2">
+                                                <h4 class="dorada"> {{ text_observations }}: <span class="text-danger fs-5"
+                                                        id="_cclObservacionesRequerido"></span> <span
+                                                        class="text-info fs-6" id="carRestantes"></span></h4>
+                                            </label>
+                                            <div class="input-group has-validation">
+                                                <textarea name="cclObservaciones"
+                                                    placeholder="¿Necesita que el Conciliador conozca información sobre usted?"
+                                                    class="form-control" id="_cclObservaciones" maxlength="128"
+                                                    oninput="valObservaciones(this)"></textarea>
+                                                <div class="invalid-feedback">
+                                                    Ingrese Obervaciones
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        <div class="row">
+                          <div class="row form-group col-12 px-0 mt-4 mb-4" id="step5"> 
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                              <div class="col-12">                    
+                                <div class="input-group">
+                                    <label type="text" class="form-control bg-secondary bg-primary-ccls captcha-class" id="_visibleCaptcha"></label>
+                                    <div class="input-group-text btn-primary-ccls" onclick="generarCaptcha(), habilitarAgenda()">
+                                        <svg fill="#ffffff" class="iconSize" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M15.977 0c-7.994 0-14.498 6.504-14.498 14.498 0 7.514 5.79 13.798 13.236 14.44l-2.87 1.455c-0.354 0.195-0.566 0.632-0.355 0.977l0.101 0.262c0.211 0.346 0.668 0.468 1.021 0.274l4.791-2.453c0.006-0.004 0.012-0.003 0.019-0.007l0.322-0.176c0.177-0.098 0.295-0.257 0.342-0.434 0.049-0.177 0.027-0.375-0.079-0.547l-0.191-0.313c-0.003-0.006-0.009-0.010-0.012-0.015l-2.959-4.624c-0.21-0.346-0.666-0.468-1.021-0.274l-0.232 0.162c-0.354 0.194-0.378 0.694-0.168 1.038l1.746 2.709c-0.009-0-0.018-0.004-0.027-0.005-6.54-0.429-11.662-5.907-11.662-12.47 0-6.891 5.607-12.498 12.498-12.498 6.892 0 12.53 5.606 12.53 12.498 0 3.968-1.823 7.613-5 9.999-0.442 0.332-0.53 0.959-0.199 1.401 0.332 0.442 0.959 0.531 1.401 0.199 3.686-2.768 5.799-6.996 5.799-11.598-0-7.994-6.536-14.498-14.53-14.498z"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                              </div>
+                
+                              <label for="cclIngresoCaptch" class="d-block dorada my-2"> 
+                                <h4 class="dorada"> {{ text_captcha }}:<span class="required">*</span> <span class="text-danger fs-5" id="_cclCaptachaRequerido"></span></h4>
+                              </label>
+                              <input class="form-control captcha-class text-black" onpaste="return false" type="text" id="_recaptcha" alt="recaptcha" oninput="habilitarAgenda()">
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="row form-group col-12 px-0 " id="step6"> 
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                              <div class="form-check">
+                                <input class="form-check-input mt-2" type="checkbox" id="_cclAviso" name="cclAviso" required>
+                                <label class="form-check-label dorada fs-4" for="cclAviso">
+                                  <a href="{{ privacy_terms:url }}" target="_blank">{{ privacy_terms_text }}<span class="required">*</span> </a>
+                                    <span class="text-danger fs-5" id="_cclAvisoRequerido"></span>
+                                </label>
+                              </div>
+                              <div class="input-group has-validation">                                
+                                <div class="invalid-feedback">
+                                  Acepte aviso de privacidad para agendar una cita
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                            <!--Valor Status por defecto -->
+                            <input type="hidden" name="status" value="1">
+                            <input type="hidden" name="cclIDConfig" id="_idConfig" value="0">
+
+                            
+                        </div>
+                    </div>
+                    <div class="row justify-content-left w-100 col-12 my-3">
+                        <div class="row">
+                            <div class="row form-group col-12 px-0 " id="step7">
+                                <div class=" col-lg-6 col-md-12 col-sm-12">
+                                    <button type="button" id="btnAgendar" ,
+                                        class="btn btn-primary btn-primary-ccls rounded-pill" data-bs-toggle="modal"
+                                        data-bs-target="#confirmarDatosCita" onclick="obtenerFormulario();"
+                                        disabled>Agendar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Modal para confirmar datos de cita-->
+                    <div class="modal fade" id="confirmarDatosCita" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+
+                                <!--Texto de encabezado-->
+                                <div class="modal-header">
+                                    <div class="col-md-8">
+                                        <h3 class="modal-title">{{ title_confirmation }}</h3>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <svg width="32" height="32px" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <rect width="24" height="24" fill="white" />
+                                            <circle cx="12" cy="12" r="9" stroke="#000000" stroke-linecap="round"
+                                                stroke-linejoin="round" />
+                                            <path d="M12 6V12H6" stroke="#000000" stroke-linecap="round"
+                                                stroke-linejoin="round" />
+                                        </svg>
+                                        <h3 class="btn btn-secondary btn-info-ccls rounded-pill" id="_cclTimerConfirmar"
+                                            style="cursor: auto"></h3>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                </div>
+
+                                <!-- Cuerpo de confirmación -->
+                                <div class="modal-body">
+
+                                    <!-- Div para Nombres -->
+                                    <div class="container text-left">
+                                        <div class="row">
+                                            <div class="p-1 col-12 justify-content-end">
+                                                <label for="cclNombre" class="d-block dorada my-2">
+                                                    <h5 class="">{{ text_confirmation_names }}:</h5>
+                                                </label>
+                                            </div>
+                                            <div class="p-1 col-12 justify-content-start">
+                                                <label for="cclNombreValidacion" id="_cclNombreValidacion"
+                                                    class="d-block dorada my-2 mr-5">
+                                                    <h5 class="dorada text-left"></h5>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Div para Apelldos -->
+                                    <div class="container text-left">
+                                        <div class="row">
+                                            <div class="p-1 col-12 justify-content-end">
+                                                <label for="cclApellidos" class="d-block dorada my-2">
+                                                    <h5 class="">{{ text_confirmation_lastname }}:</h5>
+                                                </label>
+                                            </div>
+                                            <div class="p-1 col-12 justify-content-start">
+                                                <label for="cclApellidosValidacion" id="_cclApellidosValidacion"
+                                                    class="d-block dorada my-2 mr-5">
+                                                    <h5 class="dorada"></h5>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Div para fecha -->
+                                    <div class="container text-left">
+                                        <div class="row">
+                                            <div class="p-1 col-12 justify-content-end">
+                                                <label for="cclFecha" class="d-block dorada my-2">
+                                                    <h5 class="">{{ text_confirmation_date }}:</h5>
+                                                </label>
+                                            </div>
+                                            <div class="p-1 col-12 justify-content-start">
+                                                <label for="cclFechaValidacion" id="_cclFechaValidacion"
+                                                    class="d-block dorada my-2 mr-5">
+                                                    <h5 class="dorada"></h5>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Div para hora-->
+                                    <div class="container text-left">
+                                        <div class="row">
+                                            <div class="p-1 col-12 justify-content-end">
+                                                <label for="cclHora" class="d-block dorada my-2">
+                                                    <h5 class="">{{ text_confirmation_time }}:</h5>
+                                                </label>
+                                            </div>
+                                            <div class="p-1 col-12 justify-content-start">
+                                                <label for="cclHoraValidacion" id="_cclHoraValidacion"
+                                                    class="d-block dorada my-2 mr-5">
+                                                    <h5 class="dorada"></h5>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Div para Entidad -->
+                                    <div class="container text-left">
+                                        <div class="row">
+                                            <div class="p-1 col-12 justify-content-end">
+                                                <label for="cclEstados" class="d-block dorada my-2">
+                                                    <h5 class="">{{ text_confirmation_state }}:</h5>
+                                                </label>
+                                            </div>
+                                            <div class="p-1 col-12 justify-content-start">
+                                                <label for="cclEstadosValidacion" id="_cclEstadosValidacion"
+                                                    class="d-block dorada my-2 mr-5">
+                                                    <h5 class="dorada"></h5>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Div para Oficina -->
+                                    <div class="container text-left">
+                                        <div class="row">
+                                            <div class="p-1 col-12 justify-content-end">
+                                                <label for="cclOficina" class="d-block dorada my-2">
+                                                    <h5 class="">{{ text_confirmation_office }}:</h5>
+                                                </label>
+                                            </div>
+                                            <div class="p-1 col-12 justify-content-start">
+                                                <label for="cclOficinaValidacion" id="_cclOficinasValidacion"
+                                                    class="d-block dorada my-2 mr-5">
+                                                    <h5 class="dorada"></h5>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Div para Correo -->
+                                    <div class="container text-left">
+                                        <div class="row">
+                                            <div class="p-1 col-12 justify-content-end">
+                                                <label for="cclCorreo" class="d-block dorada my-2">
+                                                    <h5 class="">{{ text_confirmation_email }}:</h5>
+                                                </label>
+                                            </div>
+                                            <div class="p-1 col-12 justify-content-start">
+                                                <label for="cclCorreoValidacion" id="_cclCorreoValidacion"
+                                                    class="d-block dorada my-2 mr-5">
+                                                    <h5 class="dorada"></h5>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Div para Celular -->
+                                    <div class="container text-left">
+                                        <div class="row">
+                                            <div class="p-1 col-12 justify-content-end">
+                                                <label for="cclCelular" class="d-block dorada my-2">
+                                                    <h5 class="">{{ text_confirmation_telephone }}:</h5>
+                                                </label>
+                                            </div>
+                                            <div class="p-1 col-12 justify-content-start">
+                                                <label for="cclCelularValidacion" id="_cclCelularValidacion"
+                                                    class="d-block dorada my-2 mr-5">
+                                                    <h5 class="dorada"></h5>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Div para Obervaciones -->
+                                    <div class="container text-left">
+                                        <div class="row">
+                                            <div class="p-1 col-12 justify-content-end">
+                                                <label for="cclObservaciones" class="d-block dorada my-2">
+                                                    <h5 class="">{{ text_confirmation_observations }}:</h5>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Div para Obervaciones -->
+                                    <div class="container text-left">
+                                        <div class="row">
+                                            <div class="col-12 justify-content-start">
+                                                <label for="cclObservacionesValidacion" id="_cclObservacionesValidacion"
+                                                    class="d-block dorada my-2 mr-5">
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Div para Bótones -->
+                                    <div class="modal-footer justify-content-right">
+                                        <div class="d-flex">
+                                            <div class="p-2 justify-content-start">
+                                                <button type="button"
+                                                    class="btn btn-secondary btn-info-ccls rounded-pill"
+                                                    data-bs-dismiss="modal">Cancelar</button>
+                                            </div>
+                                            <div class="p-2 flex-grow-1 justify-content-end">
+                                                <button type="submit"
+                                                    class="btn btn-primary btn-primary-ccls rounded-pill"
+                                                    data-bs-dismiss="modal" onclick="mensajeProcesando();">Confirmar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Modal para redireccionar cita-->
+                    <div class="modal fade" id="redireccionCita" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+
+                                <!--Texto de encabezado-->
+                                <div class="modal-header">
+                                    <div class="col-md-8">
+                                        <h3 class="modal-title">{{ redirect_title }}</h3>
+                                    </div>
+                                    
+                                    <div class="col-md-1">
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                </div>
+
+                                <!-- Cuerpo de confirmación -->
+                                <div class="modal-body">
+
+                                    <!-- Div para Nombres -->
+                                    <div class="container text-center">
+                                        <p>{{ redirect_text_center }}</p>
+                                        <p id="nombre_centro"></p>
+                                        <hr><hr>
+                                        <p class="texto_redireccion hidden" id="redireccion_pagina">{{ redirect_text_page }}</p>
+                                        <p class="texto_redireccion hidden" id="redireccion_correo">{{ redirect_text_email }}</p>
+                                        <p class="texto_redireccion hidden" id="redireccion_telefono">{{ redirect_text_phone }}</p>
+                                        <div id="liga_redireccion"></div>
+                                    </div>
+
+                                    <!-- Div para Bótones -->
+                                    <div class="modal-footer justify-content-right">
+                                        <div class="d-flex">
+                                            <div class="p-2 justify-content-start">
+                                                <button type="button"
+                                                    class="btn btn-secondary btn-info-ccls rounded-pill"
+                                                    data-bs-dismiss="modal">Cerrar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</section>

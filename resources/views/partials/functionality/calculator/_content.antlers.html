@@ -1,0 +1,401 @@
+<div class="container vh-75">
+    <div class="row justify-content-md-center">
+        <div class="col-12 col-md-10" id="principal">
+            <div class="card px-1 py-3 mt-5 shadow" id="pdf_div">
+                <h2 class="section-title my-2 dorada text-center">{{ title }}</h2>
+                <hr>
+                <div id="calculo" class="px-3 calculo position-relative">
+                    <form id="form_calculo" action="{{route:calculo}}">
+                        <input type="hidden" name="_token" value="{{ csrf_token }}" />
+                        <div class="form-section" style="text-align: justify;">
+                            <h3 class="text-center">{{ politics:title_politics }}</h3>
+                            {{ if politics:subtitle_politics }}
+                                <p class="text-center">{{ politics:subtitle_politics }}</p>
+                            {{ /if }}
+                            {{ politics:content_politics }}
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="aceptaTerminos"
+                                    name="aceptaTerminos" data-parsley-required-message="Este campo es requerido"
+                                    required>
+                                <label class="form-check-label dorada" for="aceptaTerminos">
+                                    {{ politics:cta_politics }}
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-section" style="text-align: justify;" data-scroll="True">
+                            <h3 class="text-center mb-3">
+                               {{ informative:title_informative }}
+                            </h3>
+                            {{ if informative:subtitle_informative }}
+                            <p class="text-center">
+                                {{ informative:subtitle_informative }}
+                            </p>
+                            {{ /if }}
+                            <p>
+                                {{ informative:first_text_informative }}
+                                <a class="dorada" data-bs-toggle="tooltip"
+                                    data-bs-title="{{ informative:tooltip_text_informative }}">
+                                    salario base
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-info-circle" viewBox="0 0 16 16">
+                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                                        <path
+                                            d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0" />
+                                    </svg>
+                                </a>
+                            </p>
+                            {{ informative:content_informative }}
+                        </div>
+
+                        <div class="form-section">
+                            <label for="validationServer04" class="form-label">{{ salary_peridocity:title_salary }}</label>
+                            <div class="input-group has-validation">
+                                <span class="input-group-text" id="salarioI">$</span>
+                                <input type="number" min="1" max="99999999" class="form-control " id="salario"
+                                    aria-describedby="salarioI" name="remuneracion"
+                                    data-parsley-required-message="Este campo es requerido. Ingrese un monto válido"
+                                    data-parsley-range-message="Ingrese un monto válido"
+                                    data-parsley-errors-container="#error_salario" placeholder="0" required>
+                            </div>
+                            <div id="error_salario"></div>
+                            <br>
+                            <label for="periodicidad" class="form-label">{{ salary_peridocity:title_periodicity }}</label>
+                            {{ calculator:periods }}
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="periodicidad_id"
+                                    id="periodicidad_{{id}}" value="{{id}}"
+                                    data-parsley-required-message="Este campo es requerido"
+                                    data-parsley-errors-container="#error_periodicidad" data-days="{{dias}}" required>
+                                <label class="form-check-label" for="periodicidad_{{id}}">
+                                    {{nombre}}
+                                </label>
+                            </div>
+                            {{ /calculator:periods }}
+                            <div id="error_periodicidad"></div>
+                        </div>
+
+                        <div class="form-section" data-calculate="True">
+                            <h3 class="text-center">{{ validation_group:title_validation }}</h3>
+                            <br>
+                            {{ if validation_group:subtitle_validations }}
+                                <p class="dorada text-center">{{ validation_group:subtitle_validations }}</p>
+                            {{ /if }}
+                            <p class="text-center fw-bold">{{ validation_group:daily_salary_text }} $<span id="salarioDiario"></span></p>
+                            <label for="periodicidad" class="form-label"></label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="check_salarioDiario"
+                                    name="check_salarioDiario"
+                                    data-parsley-required-message="Valide que el monto sea correcto o de clic en Corregir."
+                                    required>
+                                <label class="form-check-label" for="check_salarioDiario">
+                                    {{ validation_group:text_validation }}
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <label for="zona" class="form-label">
+                                {{ border_zone_profesions:title_border_zone }}
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#estadosFronterizos">
+                                    {{ border_zone_profesions:title_modal_border_zones }}
+                                </a>
+                            </label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="zona" value="1" id="zona1"
+                                    data-parsley-required-message="Este campo es requerido"
+                                    data-parsley-errors-container="#error_zona" required>
+                                <label class="form-check-label" for="zona1">
+                                    Sí
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" value="0" name="zona" id="zona2">
+                                <label class="form-check-label" for="zona2">
+                                    No
+                                </label>
+                            </div>
+                            <div id="error_zona"></div>
+                            <br>
+                            <label for="profesion" class="form-label">{{ border_zone_profesions:title_profesion }}</label>
+                            <select id="profesion" class="form-control" name="ocupacion_id" style="width: 100%;">
+                                <option value="" selected>-</option>
+                                {{ calculator:profesions }}
+                                <option value="{{id}}">{{profesion}}</option>
+                                {{ /calculator:profesions }}
+                            </select>
+                        </div>
+
+                        <div class="form-section">
+                            <label for="fechaIngreso" class="form-label">{{ period_labor:title_start_date }}</label>
+                            <input id="fechaIngreso" class="form-control" type="date"
+                                max='{{$ Carbon\Carbon::now()->format("Y-m-d") $}}' name="fecha_ingreso"
+                                data-parsley-required-message="Este campo es requerido" required />
+                            <div class="invalid-feedback">
+                                Selecciona una fecha
+                            </div>
+                            <br>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="laboraActualmente"
+                                    name="labora_actualmente" checked>
+                                <label class="form-check-label" for="laboraActualmente">
+                                    {{ period_labor:title_current_labor_validator }}
+                                </label>
+                                <br>
+                                <small>
+                                    {{ period_labor:explanation_labor }}
+                                </small>
+                            </div>
+                            <br>
+                            <div id="div_fechaterminacion">
+                                <label for="fechaTerminacion" class="form-label">{{ period_labor:title_date_end }}</label>
+                                <input id="fechaTerminacion" class="form-control" type="date"
+                                    max='{{$ Carbon\Carbon::now()->format("Y-m-d") $}}' min="2023-01-01"
+                                    name="fecha_salida" />
+                                <div class="invalid-feedback">
+                                    Selecciona una fecha
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-navigation mt-3 pt-4">
+                            <button type="button"
+                                class="previous btn btn-primary position-absolute bottom-0 start-0 mx-3 btn-sm">&lt;
+                                Regresar</button>
+                            <button type="button"
+                                class="next btn btn-primary position-absolute bottom-0 end-0 mx-3 btn-sm"
+                                btn-sm>Continuar &gt;</button>
+                            <button
+                                class="submit btn btn-primary btn-primary-ccls position-absolute bottom-0 end-0 mx-3 btn-sm">Calcular</button>
+                        </div>
+
+                    </form>
+                    <div class="modal fade" id="estadosFronterizos" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="staticBackdropLabel">{{ title_modal_border_zone }}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    {{ content_field_modal_border_zone }}
+     
+                                        {{ if type == "title_subcontent" }}
+                                        
+                                            {{ partial src="sets/title" }}
+                                        
+                                        {{ elseif type == "text_subcontent" }}
+                                        
+                                            {{ partial src="sets/paragraph" }}
+                                        
+                                        {{ elseif type == "image_content" }}
+                                        
+                                            {{ partial src="sets/image" }}
+                                        
+                                        {{ /if }}
+                                        
+                                    {{ /content_field_modal_border_zone }}
+                                </div>
+                                <div class="modal-footer justify-content-center">
+                                    <button class="btn btn-primary btn-lg btn-primary-ccls rounded-pill"
+                                        data-bs-dismiss="modal">Regresar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="resultado" class="d-none p-0">
+                    <div class="row">
+
+                        <div id="detalles" class="row table-font-small">
+                            <h4 class="dorada mb-2">
+                                {{ result_content:title_details_result }}:
+                            </h4>
+
+                            <div class="col-12 col-md-6 cols">
+                                <p>
+                                    {{ result_content:details_text_content:start_date_text }}: <span id="detalle_fecha_inicio"></span>
+                                </p>
+                                <p>
+                                    {{ result_content:details_text_content:years_old_text }}: <span id="detalle_antiguedad"></span>
+                                </p>
+                                <p>
+                                    {{ result_content:details_text_content:minimum_salary_text }}: <span id="detalle_salario_minimo"></span>
+                                </p>
+                            </div>
+                            <div class="col-12 col-md-6 cols">
+                                <p>
+                                    {{ result_content:details_text_content:end_date_text }}: <span id="detalle_fecha_salida"></span>
+                                </p>
+                                <p>
+                                    {{ result_content:details_text_content:border_zone_text }}: <span id="detalle_zona"></span>
+                                </p>
+                                <p>
+                                    {{ result_content:details_text_content:daily_salary_text }}: <span id="detalle_salario_diario"></span>
+                                </p>
+                            </div>
+                            <div class="col-12">
+                                <p>
+                                    {{ result_content:details_text_content:profesion_text }}: <span id="detalle_profesion"></span>
+                                </p>
+                            </div>
+
+                            <button id="modal_explicacion"
+                                class="btn btn-secondary-ccls rounded-pill btn-pdf btn-result" data-bs-toggle="modal"
+                                data-bs-target="#modalExplanation">{{ result_content:title_explanation }}</button>
+                        </div>
+
+                        <div id="prestaciones_completas" class="col-12 col-md-12 table-responsive">
+                            <div class="my-2">
+                                <h4 class="dorada">
+                                    {{ result_content:title_table_result }}:
+                                </h4>
+                            </div>
+
+                            <table class="table table-font-small">
+                                <thead>
+                                    <tr class="dorada">
+                                        <th>
+                                            Prestación
+                                            <div><br class="d-sm-block d-md-none"></div>
+                                        </th>
+                                        <th class="propuesta_completa">
+                                            Propuesta
+                                            <br class="d-sm-block d-md-none">
+                                            100%
+                                        </th>
+                                        <th class="propuesta_parcial">
+                                            Notas                                            
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row" class="text-grey">Aguinaldo</th>
+                                        <td id="aguinaldo_completa" class="propuesta_completa"></td>
+                                        <td id="aguinaldo_parcial">Derecho <br class="d-sm-block d-md-none">irrenunciable</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" class="text-grey">Vacaciones</th>
+                                        <td id="vacaciones_completa" class="propuesta_completa"></td>
+                                        <td id="aguinaldo_parcial">Derecho <br class="d-sm-block d-md-none">irrenunciable</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" class="text-grey">Prima <br class="d-sm-block d-md-none">Vacacional</th>
+                                        <td id="prima_vacacional_completa" class="propuesta_completa"></td>
+                                        <td id="aguinaldo_parcial">Derecho <br class="d-sm-block d-md-none"> irrenunciable</td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" id="prima_antiguedad_text">Prima de <br class="d-sm-block d-md-none">Antigüedad</th>
+                                        <td id="prima_antiguedad_completa" class="propuesta_completa"></td>
+                                        <td id="prima_antiguedad_parcial" class="propuesta_parcial">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" class="text-orange">Indemnización <br class="d-sm-block d-md-none"> Constitucional</th>
+                                        <td id="indemizacion_completa" class="propuesta_completa"></td>
+                                        <td id="indemizacion_parcial" class="text-orange">Compensación <br class="d-sm-block d-md-none">negociable</td>
+                                    </tr>
+                                </tbody>
+                                <thead>
+                                    <tr class="text-dark">
+                                        <th>TOTAL</th>
+                                        <td id="total_completa" class="propuesta_completa"></td>
+                                        <td id="total_parcial" class="propuesta_parcial d-none d-md-block"></td>
+                                    </tr>
+                                </thead>
+                            </table>
+
+                            <div class="row" id="resultados_botones">
+                                <div class="col-12 col-md-6 my-3 text-center">
+                                    <button class="btn btn-secondary-ccls rounded-pill btn-pdf btn-result" id="pdf">
+                                        <svg width="25" height="25" xmlns="http://www.w3.org/2000/svg">
+                                            <image href="/assets/contenidos/iconos/pdf.svg" height="25" width="25" />
+                                        </svg>
+                                        {{ result_content:title_download }}
+                                    </button>
+                                </div>
+                                <div class="col-12 col-md-6 my-3 text-center">
+                                    <button class="btn btn-primary btn-primary-ccls rounded-pill btn-result"
+                                        id="editar">{{ result_content:title_edit }}</button>
+                                </div>
+                            </div>
+
+                            <div id="other_amounts" class="row table-font-small">
+                                <hr>
+                                <h4 class="dorada mb-2">
+                                    {{ result_content:title_other_amount }}:
+                                </h4>
+    
+                                <div>
+                                    <p>PROPUESTA 90%: <span id="total_90"></span></p>
+                                </div>
+                                <div>
+                                    <p>PROPUESTA 80%: <span id="total_80"></span></p>
+                                </div>
+                                <div>
+                                    <p>PROPUESTA 70%: <span id="total_70"></span></p>
+                                </div>
+                                <div>
+                                    <p>PROPUESTA 60%: <span id="total_60"></span></p>
+                                </div>
+                                <div>
+                                    <p>PROPUESTA 50%: <span id="total_50"></span></p>
+                                </div>
+                            </div>
+
+                            <div id="leyenda" style="text-align: justify;">
+                                <hr>
+                                <small>
+                                    {{ result_content:leyend_text }}
+                                </small>
+                                <h4 class="h4 dorada my-3">
+                                    {{ result_content:title_important_note | sanitize }}
+                                </h4>
+                                <p>
+                                    {{ result_content:text_important_note | nl2br | markdown }}
+                                </p>
+                            </div>
+                            
+                            <!-- Modal -->
+                            <div class="modal fade" id="modalExplanation" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content" id="modalExplanationContent">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="staticBackdropLabel">{{ title_modal_explanation }}</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            {{ content_field_modal_explanation }}
+     
+                                                {{ if type == "title_subcontent" }}
+                                                
+                                                    {{ partial src="sets/title" }}
+                                                
+                                                {{ elseif type == "text_subcontent" }}
+                                                
+                                                    {{ partial src="sets/paragraph" }}
+                                                
+                                                {{ elseif type == "image_content" }}
+                                                
+                                                    {{ partial src="sets/image" }}
+                                                
+                                                {{ /if }}
+                                                
+                                            {{ /content_field_modal_explanation }}
+                                        </div>
+                                        <div class="modal-footer" id="modalExplanationFooter">
+                                            <button type="button" class="btn btn-primary btn-primary-ccls rounded-pill " data-bs-dismiss="modal">Cerrar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

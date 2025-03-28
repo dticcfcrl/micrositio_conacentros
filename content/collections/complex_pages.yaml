@@ -1,0 +1,14 @@
+title: 'Páginas con funcionalidades'
+template: default
+layout: default
+revisions: false
+route: 'herramientas/{slug}'
+sort_dir: asc
+date_behavior:
+  past: public
+  future: private
+preview_targets:
+  -
+    label: Entry
+    url: '{permalink}'
+    refresh: true

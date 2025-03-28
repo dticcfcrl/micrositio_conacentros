@@ -1,0 +1,66 @@
+<script>
+  document.getElementById('input_search').addEventListener('focus', function () {
+      this.placeholder = '';
+  });
+
+  document.getElementById('input_search').addEventListener('blur', function () {
+      this.placeholder = 'Buscar';
+  });
+</script>
+
+<footer class="footer">
+  <div class="container py-4 py-md-5 px-4 px-md-3 text-body-secondary">
+  <div class="row">
+    <div class="col-12 col-md-6 col-lg-4 mb-4">
+      <a class="d-inline-flex align-items-center mb-2 text-body-emphasis text-decoration-none" href="/" >
+          <svg width="230" height="90" xmlns="http://www.w3.org/2000/svg">
+              <image href="{{ footer:logo_description:image_logo:url }}"  width="230" height="90"/>
+          </svg>    
+      </a>
+      <ul class="list-unstyled small">
+        <li class="mb-2">{{ footer:logo_description:text_message }}</li>
+      </ul>
+    </div>
+    <div class="col-12 col-md-6 col-lg-3 mb-3 colMenuFooter">
+      <h5 class="mb-2" >{{ footer:footer_menu:title_menu_footer }}</h5>
+      <ul class="list-unstyled">
+        {{ footer:footer_menu:footer_menu_content }}
+          <li class="mb-2"><a href="{{ link_item:url }}">{{ title_link }}</a></li>
+        {{ /footer:footer_menu:footer_menu_content }}
+      </ul>
+    </div>
+    <div class="col-12 col-md-6 col-lg-2 mb-3">
+      <h5 class="mb-2">{{ footer:menu_social_media:title_social_media }}</h5>
+      <ul class="list-unstyled">
+      {{ footer:menu_social_media:footer_menu_content }}
+        <li class="mb-2"><a href="{{ link_item:url }}">{{ title_item }}</a></li>
+      {{ /footer:menu_social_media:footer_menu_content }}
+      </ul>
+    </div>
+    <div class="col-12 col-md-6 col-lg-3 mb-3">
+      <h5 class="mb-2" >{{ footer:menu_contact:title_contact }}</h5>
+      <ul class="list-unstyled">
+        <li class="mb-2">{{ footer:menu_contact:text_contact }}</li>
+        <li class="mb-2"><a href="mailto:{{ footer:menu_contact:email }}" target="_blank" rel="noopener">{{ footer:menu_contact:email }}</a></li>
+        <li class="mb-2">{{ footer:menu_contact:telephone_number }}</li>          
+      </ul>
+    </div>
+    <div class="col-12 col-md-12 col-lg-12 mb-3">
+      <div class="row">
+        <div class="col-md-6 col-lg-6">
+          <h5 class="mb-2">{{ footer:menu_mail_list:title_mail_list }}</h5>
+          <div class="bd-example">
+              <div class="form-group form-group-alt">
+                  <input type="text" class="form-control" placeholder="{{ footer:menu_mail_list:placeholder }}">
+              </div>
+          </div>
+        </div>
+        <div class="col-6 col-md-6 col-lg-6">
+          <div class="d-none d-md-block p-2"></div>
+          <button class="btn btn-primary btn-primary-ccls rounded-pill ml-2" style="margin-left: 45px;">{{ footer:menu_mail_list:text_button}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</footer>

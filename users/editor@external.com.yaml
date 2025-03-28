@@ -1,0 +1,8 @@
+name: 'Editor Externo'
+roles:
+  - editor
+id: f17537d0-dc8b-48dd-b6ea-5f16295efedd
+password_hash: $2y$10$F0UJ7VXSIDx9wEOso.Cr0.CGklvfMvcJ/9klw53RodlrVLf7BU.ZC
+preferences:
+  locale: es
+  start_page: collections

@@ -1,0 +1,8 @@
+name: 'Editor notas infromativas'
+roles:
+  - editor_informative_section
+id: b2062bcc-0dd5-4695-8bdb-381ab08b75de
+password_hash: $2y$10$bJIRmkJnWt1wj4IS8DO.u.e.woQlsk.cPng/wO9tLiZQbNtfza8nC
+preferences:
+  locale: es
+  start_page: collections

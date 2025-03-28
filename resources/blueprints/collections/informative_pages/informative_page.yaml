@@ -1,0 +1,382 @@
+title: 'Páginas informativa'
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        display: Contenido
+        fields:
+          -
+            handle: previous_page
+            field:
+              type: link
+              display: 'Página a regresar'
+              instructions: 'Página de regreso al momento de dar clic a regresar. Si está vacío se regresará a la página principal (Persona Trabajadora).'
+              listable: hidden
+              instructions_position: below
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+              validate:
+                - required
+              display: Título
+              instructions: 'Título principal de la página'
+              instructions_position: below
+              listable: hidden
+              visibility: visible
+              replicator_preview: true
+              input_type: text
+              character_limit: 100
+              antlers: false
+              hide_display: false
+          -
+            handle: content_items
+            field:
+              collapse: false
+              previews: true
+              fullscreen: true
+              sets:
+                group:
+                  display: Grupo
+                  instructions: null
+                  icon: layout-grid-dots
+                  sets:
+                    title_subcontent:
+                      display: Título
+                      instructions: null
+                      icon: media-news-paper
+                      fields:
+                        -
+                          handle: subtitle
+                          field:
+                            input_type: text
+                            antlers: false
+                            type: text
+                            display: Encabezado
+                            listable: hidden
+                            instructions_position: below
+                            visibility: visible
+                            replicator_preview: true
+                            hide_display: false
+                            instructions: 'Subtítulo para el contenido.'
+                    text_subcontent:
+                      display: Párrafo
+                      instructions: null
+                      icon: form-text-field
+                      fields:
+                        -
+                          handle: textarea_subcontent
+                          field:
+                            restrict: false
+                            buttons:
+                              - bold
+                              - italic
+                              - unorderedlist
+                              - orderedlist
+                              - quote
+                              - link
+                              - image
+                              - table
+                              - underline
+                              - strikethrough
+                              - small
+                              - anchor
+                              - alignleft
+                              - aligncenter
+                              - alignright
+                              - alignjustify
+                              - removeformat
+                              - superscript
+                              - subscript
+                              - codeblock
+                            automatic_line_breaks: true
+                            automatic_links: true
+                            escape_markup: true
+                            heading_anchors: false
+                            smartypants: false
+                            table_of_contents: false
+                            antlers: false
+                            type: bard
+                            display: Contenido
+                            listable: hidden
+                            instructions_position: above
+                            visibility: visible
+                            replicator_preview: true
+                            hide_display: false
+                            instructions: 'Párrafo para agregar al contenido de la página'
+                            smart_typography: false
+                            save_html: true
+                            inline: false
+                            toolbar_mode: fixed
+                            reading_time: false
+                            word_count: false
+                            fullscreen: true
+                            allow_source: true
+                            enable_input_rules: true
+                            enable_paste_rules: true
+                            remove_empty_nodes: false
+                            link_noopener: false
+                            link_noreferrer: false
+                            target_blank: false
+                            always_show_set_button: false
+                            collapse: false
+                            previews: true
+                    image:
+                      display: Imagen
+                      instructions: null
+                      icon: media-image-picture-orientation
+                      fields:
+                        -
+                          handle: image
+                          field:
+                            max_files: 1
+                            min_files: 1
+                            mode: list
+                            container: assets
+                            restrict: false
+                            allow_uploads: true
+                            show_filename: true
+                            show_set_alt: true
+                            type: assets
+                            display: 'Imagen a mostrar'
+                            instructions: 'Imagen para agregar al contenido de la página'
+                            listable: hidden
+                            instructions_position: below
+                            visibility: visible
+                            replicator_preview: true
+                            hide_display: false
+                    imagen_text:
+                      display: 'Imagen con contenido'
+                      instructions: null
+                      icon: text-formatting-image-top
+                      fields:
+                        -
+                          handle: image_text_items
+                          field:
+                            collapse: false
+                            previews: true
+                            fullscreen: true
+                            sets:
+                              contenido:
+                                display: Contenido
+                                instructions: null
+                                icon: dashboard-layout
+                                sets:
+                                  contenido:
+                                    display: Contenido
+                                    instructions: null
+                                    icon: null
+                                    fields:
+                                      -
+                                        handle: title_card
+                                        field:
+                                          input_type: text
+                                          antlers: false
+                                          type: text
+                                          display: Título
+                                          instructions: 'Título principal.'
+                                          listable: hidden
+                                          instructions_position: above
+                                          visibility: visible
+                                          replicator_preview: true
+                                          hide_display: false
+                                      -
+                                        handle: description_card
+                                        field:
+                                          buttons:
+                                            - bold
+                                            - italic
+                                            - unorderedlist
+                                            - orderedlist
+                                            - removeformat
+                                            - quote
+                                            - anchor
+                                            - image
+                                            - table
+                                            - underline
+                                            - strikethrough
+                                            - small
+                                            - horizontalrule
+                                            - alignleft
+                                            - aligncenter
+                                            - alignright
+                                            - alignjustify
+                                          smart_typography: false
+                                          save_html: true
+                                          inline: false
+                                          toolbar_mode: fixed
+                                          reading_time: false
+                                          word_count: false
+                                          fullscreen: true
+                                          allow_source: true
+                                          enable_input_rules: true
+                                          enable_paste_rules: true
+                                          remove_empty_nodes: false
+                                          antlers: false
+                                          link_noopener: false
+                                          link_noreferrer: false
+                                          target_blank: false
+                                          always_show_set_button: false
+                                          collapse: false
+                                          previews: true
+                                          type: bard
+                                          display: Contenido
+                                          instructions: 'Texto que contendrá el contenido de la sección.'
+                                          listable: hidden
+                                          instructions_position: above
+                                          visibility: visible
+                                          replicator_preview: true
+                                          hide_display: false
+                                      -
+                                        handle: image_background
+                                        field:
+                                          max_files: 1
+                                          min_files: 1
+                                          mode: list
+                                          container: assets
+                                          folder: contenidos/paginas_informativas
+                                          restrict: false
+                                          allow_uploads: true
+                                          show_filename: true
+                                          show_set_alt: true
+                                          type: assets
+                                          display: 'Imágen de fondo'
+                                          instructions: 'Imagen que se colocará de fondo en el contenido.'
+                                          listable: hidden
+                                          instructions_position: above
+                                          visibility: visible
+                                          replicator_preview: true
+                                          hide_display: false
+                                      -
+                                        handle: link
+                                        field:
+                                          fields:
+                                            -
+                                              handle: link_cta_text
+                                              field:
+                                                input_type: text
+                                                antlers: false
+                                                type: text
+                                                display: 'Texto para botón'
+                                                instructions: 'Texto para un botón en la parte inferior del contenido. Se puede dejar vacío para omitir el campo.'
+                                                listable: hidden
+                                                instructions_position: below
+                                                visibility: visible
+                                                replicator_preview: true
+                                                hide_display: false
+                                            -
+                                              handle: link_cta
+                                              field:
+                                                type: link
+                                                display: 'Enlace para el botón de acción'
+                                                instructions: 'Página externa o interna para redireccionar. Es requerido si se llena el campo del texto.'
+                                                listable: hidden
+                                                instructions_position: below
+                                                visibility: visible
+                                                replicator_preview: true
+                                                hide_display: false
+                                          fullscreen: true
+                                          type: group
+                                          display: 'Botón de acción'
+                                          instructions: 'Sección para el botón de "Call To Action". Se omite este contenido si se deja vacío.'
+                                          listable: hidden
+                                          instructions_position: above
+                                          visibility: visible
+                                          replicator_preview: true
+                                          hide_display: false
+                            type: replicator
+                            display: Elementos
+                            listable: hidden
+                            instructions_position: above
+                            visibility: visible
+                            replicator_preview: true
+                            hide_display: false
+              type: replicator
+              display: Contenido
+              instructions: 'Agrega el contenido para la página. Se puede agregar: título, párrafos e imágenes.'
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+  sidebar:
+    display: Sidebar
+    sections:
+      -
+        fields:
+          -
+            handle: slug
+            field:
+              type: slug
+              localizable: true
+              validate: 'max:200'
+  preview:
+    display: Carrusel
+    sections:
+      -
+        display: 'Vista previa'
+        instructions: 'Contenido para mostrar en el carrusel'
+        fields:
+          -
+            handle: card_title
+            field:
+              input_type: text
+              character_limit: 100
+              antlers: false
+              type: text
+              display: 'Título de carrusel'
+              instructions: 'Título que se mostrará en el elemento del carrusel'
+              listable: hidden
+              instructions_position: below
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: card_description
+            field:
+              antlers: false
+              type: textarea
+              display: Descripción
+              instructions: 'Es el texto que aparecerá en el contenido del elemento en el carrusel'
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: card_cta
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: 'Texto para botón'
+              instructions: 'Texto para el botón del Call To Action'
+              listable: hidden
+              instructions_position: below
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: card_icon
+            field:
+              max_files: 1
+              mode: list
+              container: assets
+              folder: contenidos/iconos
+              restrict: true
+              allow_uploads: true
+              show_filename: true
+              show_set_alt: true
+              type: assets
+              display: 'Ícono elemento'
+              instructions: 'El ícono para agregar al carrusel'
+              listable: hidden
+              instructions_position: below
+              visibility: visible
+              replicator_preview: true
+              hide_display: false

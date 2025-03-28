@@ -1,0 +1,82 @@
+<script src="{{ mix src='js/app.js' }}"></script>
+<script src="{{ mix src='js/libs.min.js' }}"></script>
+<script src="{{ mix src='js/hope-ui.js' }}"></script>
+<script src="{{ mix src='js/leaflet.js' }}"></script>
+
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+<script>
+    AOS.init();
+   </script>
+   <script>
+       var owl = $(".owl2.owl-carousel");
+       owl.owlCarousel({
+        items: 1,
+        margin: 50,
+        loop: true,
+        nav: false,
+        dots:true,
+        autoplay:true,
+        autoplayTimeout:5000,
+        autoplayHoverPause:true,
+        responsiveClass: true,
+        responsive : {
+        0 : {
+          items: 1
+        },
+       550 : {
+          items: 1
+        },
+       768:{
+        items: 1
+      },
+       992:{
+        items: 1
+      },
+       1280:{
+        items: 1
+      }
+      }
+      });
+  </script>
+  <script>
+$(window).scroll(function(){
+           if($(this).scrollTop() > 100){
+               $('.navbar').addClass('sticky')
+           } else{
+               $('.navbar').removeClass('sticky')
+           }
+       });
+   
+   if (window.DeviceOrientationEvent) {
+     window.addEventListener('orientationchange', function() { location.reload(); }, false);
+   }
+  </script>
+  <script>
+   $('#myModal').on('shown.bs.modal', function () {
+     $('#myInput').trigger('focus')
+   })
+</script>
+
+<script>
+  document.getElementById('input_search').addEventListener('focus', function () {
+      this.placeholder = '';
+  });
+
+  document.getElementById('input_search').addEventListener('blur', function () {
+      this.placeholder = 'Buscar';
+  });
+</script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RVJRNW0Y52"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-RVJRNW0Y52');
+</script>

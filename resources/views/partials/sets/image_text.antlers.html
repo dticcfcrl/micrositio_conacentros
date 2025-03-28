@@ -1,0 +1,20 @@
+<div class="col cardActlab rounded-bottom ">
+    <div class="card ">
+        <div class="card-head">                                
+            <img src="{{ image_background:url }}"   alt="{{ image_background:alt }}">
+            <div class="textCardAct w-100 p-1">
+            <h5 class="card-title" >
+                {{ title_card }} 
+            </h5>
+            <p class="card-text rounded p-1">
+                {{ description_card | nl2br | markdown | classify:paragraph_content }}
+            </p>
+            {{ if link:link_cta_text and link:link_cta:url }}
+                <div class="text-center">
+                    <a class="dorada rounded selecc cta" href="{{ link:link_cta:url }}"> {{ link:link_cta_text }} </a>
+                </div>
+            {{ /if }}
+            </div>
+        </div>
+    </div>
+</div>

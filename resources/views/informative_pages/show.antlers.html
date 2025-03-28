@@ -1,0 +1,49 @@
+<div class="full_min_height">
+    {{? $previousPage = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '/'; ?}}
+    <section class="der-lab-trabajadores  my-5 col col-md-10 col-lg-10 col-12 ">
+        <div class="row w-100">
+            <div class="col-12  justify-content-center w-100">
+                <a href="{{ previous_page:url ?? $previousPage }}" class="btn btn-primary btn-primary-ccls rounded-pill"> 
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+                    </svg>
+                    Regresar
+                </a>
+                <h2 class="h2 my-3 text-left d-block h2-principal">
+                    {{ title | sanitize  }}
+                </h2>
+                <hr>
+    
+    
+                {{ content_items }}
+     
+                    {{ if type == "title_subcontent" }}
+                    
+                        {{ partial src="sets/title" }}
+                    
+                    {{ elseif type == "text_subcontent" }}
+                    
+                        {{ partial src="sets/paragraph" }}
+                    
+                    {{ elseif type == "image" }}
+                    
+                        {{ partial src="sets/image" }}
+                    
+                    {{ elseif type == "imagen_text" }}
+
+                        <div class="bd-example galeriaActLab derLaborales">
+                            <div class="row  row-cols-1 row-cols-md-2 g-lg-3 g-md-3 g-1">
+                                {{ image_text_items }}
+                                    {{ partial src="sets/image_text" }}
+                                {{ /image_text_items }}
+                            </div>
+                        </div>
+                    
+                    {{ /if }}
+                    
+                {{ /content_items }}
+            </div>
+        </div>  
+        
+    </section>
+</div>

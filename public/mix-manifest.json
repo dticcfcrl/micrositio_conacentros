@@ -1,0 +1,15 @@
+{
+    "/js/app.js": "/js/app.js",
+    "/js/hope-ui.js": "/js/hope-ui.js",
+    "/js/libs.min.js": "/js/libs.min.js",
+    "/js/leaflet.js": "/js/leaflet.js",
+    "/js/OpenLayers.js": "/js/OpenLayers.js",
+    "/css/hope-ui.css": "/css/hope-ui.css",
+    "/css/app.css": "/css/app.css",
+    "/css/rtl.css": "/css/rtl.css",
+    "/css/dark.css": "/css/dark.css",
+    "/css/custom.css": "/css/custom.css",
+    "/css/libs.min.css": "/css/libs.min.css",
+    "/css/leaflet.css": "/css/leaflet.css",
+    "/css/customizer.css": "/css/customizer.css"
+}

@@ -1,0 +1,23 @@
+name: admin
+super: true
+expiration_date: 1716755755
+id: f989c7ba-beca-462e-89e5-66fddce245af
+password_hash: $2y$10$XLoE5XplmUUOHcnSVJ3aEeQRH9LoPY1b8GOlamRdcjhrxhsGNVsEm
+preferences:
+  collections:
+    pages:
+      after_save: continue_editing
+    informative_pages:
+      columns:
+        - title
+        - slug
+        - status
+      after_save: continue_editing
+    complex_pages:
+      columns:
+        - title
+        - slug
+        - status
+      after_save: continue_editing
+  locale: es
+  nav: {  }

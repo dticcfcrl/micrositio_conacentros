@@ -1,0 +1,159 @@
+title: 'Localiza Centro Actividad'
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+              validate:
+                - required
+          -
+            handle: title_activities_instructions
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: 'Título de intrucciones de actividades'
+              instructions: 'Es el primer texto de instrucciones para indicar al usuario sobre la elección de su actividad económica.'
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: title_type_instructions
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: 'Título de intrucciones de ámbito'
+              instructions: 'Es el segundo texto de instrucciones para indicar al usuario sobre la elección del tipo de ámbito.'
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: no_option
+            field:
+              input_type: text
+              placeholder: 'Ninguna de esas opciones'
+              default: 'Ninguna de esas opciones'
+              antlers: false
+              type: text
+              display: 'Título ninguna opción'
+              instructions: 'En caso de no ser las opciones, este es el botón que aparecerá al final.'
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: group_buttons
+            field:
+              collapse: false
+              previews: true
+              fullscreen: true
+              sets:
+                botones:
+                  display: Botónes
+                  instructions: null
+                  icon: dashboard-layout
+                  sets:
+                    button_content:
+                      display: 'Contenido botones'
+                      instructions: 'Agrega el contenido para mostrar los botones de las actividades económicas.'
+                      icon: dashboard-layout
+                      fields:
+                        -
+                          handle: title_button
+                          field:
+                            input_type: text
+                            antlers: false
+                            type: text
+                            display: Título
+                            listable: hidden
+                            instructions_position: above
+                            visibility: visible
+                            replicator_preview: true
+                            hide_display: false
+                        -
+                          handle: federal_description
+                          field:
+                            antlers: false
+                            type: textarea
+                            display: 'Descripción ámbito federal'
+                            listable: hidden
+                            instructions_position: above
+                            visibility: visible
+                            replicator_preview: true
+                            hide_display: false
+                        -
+                          handle: local_description
+                          field:
+                            antlers: false
+                            type: textarea
+                            display: 'Descripción ámbito local'
+                            listable: hidden
+                            instructions_position: above
+                            visibility: visible
+                            replicator_preview: true
+                            hide_display: false
+              type: replicator
+              display: 'Grupo botónes'
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+  sidebar:
+    display: Sidebar
+    sections:
+      -
+        fields:
+          -
+            handle: slug
+            field:
+              type: slug
+              localizable: true
+              validate: 'max:200'
+          -
+            handle: template
+            field:
+              hide_partials: true
+              blueprint: false
+              type: template
+              display: Template
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+              folder: complex_pages
+          -
+            handle: next_page
+            field:
+              type: link
+              display: 'Página siguente'
+              instructions: 'Página siguiente para mostrar el mapa de los centros tanto federal como local.'
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: previous_page
+            field:
+              type: link
+              display: 'Página anterior'
+              instructions: 'Página anterior para mostrar la introducción.'
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false

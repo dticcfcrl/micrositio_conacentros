@@ -1,0 +1,53 @@
+<section class="der-lab-trabajadores  my-3 col col-md-10 col-lg-10 col-12 ">
+
+    <a href="{{ previous_page:url }}" class="btn btn-primary btn-primary-ccls rounded-pill"> 
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+        </svg>
+        Regresar
+    </a>
+
+    <div class="row w-100 col-md-10 col-lg-10 col-12 my-3">
+        <div class="col-12  col-sm-5 col-lg-5 py-5">
+            <div class="row"> 
+                <div class="row form-group col-12 px-0 " id="step1"> 
+                    <div class=" col-12 " > 
+                        <label for="cclEstados " class="d-block dorada my-2"> <h4 class="dorada"> {{ title_content }} </h4></label>
+                        <select name="cclEstados" id="_cclEstados" class="col-12  form-select mb-3">
+                            <option> Selecciona un estado </option>
+                            {{ centers_location:statesList }}
+                                <option value="{{ clave }}">{{ nombre }}</option>
+                            {{ /centers_location:statesList }}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bd-example datosCCL ocultar" id="_datosCCL">
+                <div class="list-group my-2" id="result-list">
+                    
+                    <h5 class="my-2">Deberás acudir al Centro de Conciliación y Registro Laboral.</h5>
+                    
+                    <div class="w-100 justify-content-between cclContent">
+                        <p class="mb-1 direccionCCL" id="_direccionCCL"> And some muted small print.</p>
+                        <p class="mb-1 ambitoCCL" id="_ambitoCCL"> And some muted small print.</p>
+                        <p class="mb-1 contactoCCL" id="_contactoCCL"> And some muted small print. </p>
+                        <a class="mb-1 contactoCCL vermapa" id="_contactoCCL"> And some muted small print. </a>                                                             
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-7 col-lg-7">                       
+            <div class="col-12 mapOpenStreetMap mt-5 justify-content-center w-100 sticky-top"  >                    
+                     <!-- Mapa openstreetmap-->                                        
+                      
+                    <div class="form-group col-12">
+                        <div id="map-container" style="height:450px;">
+                        </div>                                                                                                                                                                                  
+                    </div>
+                    <!-- Fin del openstreetmap -->
+            </div>                
+            
+        </div>
+    </div>  
+</section>

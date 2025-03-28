@@ -1,0 +1,143 @@
+<div class="clr"></div>
+<div class="head"></div>
+<span class="uisheet screen-darken"></span>
+
+<div class="d-md-block d-lg-none">
+    <ul class="navbar-nav home-nav">                                    
+        {{ nav:collection:pages include_home="true"  max_depth="1" scope="tag" is_hidden:isnt="true" limit="3" }}
+        <li class="nav-item{{ if is_current or is_parent }} active{{ /if }}">
+            <a class="nav-link text-center" href="{{ url }}">
+                <span class="d-md-block d-lg-block"> {{ tag:nav_title or title  | substr(0, 8) }} </span>  {{ tag:nav_title or title  | substr(8, ) }} 
+            </a>
+        </li>               
+        {{ /nav:collection:pages}}
+      </ul>
+</div>
+
+
+<section class="">
+    <div class="ban-new">
+        <div class="overlay1"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 col-md-12">
+                    <div class="ban-txt aos-init aos-animate" data-aos="fade-up" data-aos-duration="3000">
+                        <h2 class="section-title my-2">
+                            {{ main_title | sanitize | nl2br }}
+                        </h2>
+                        <div>
+                            <p>
+                                {{ main_description | sanitize | nl2br }}
+                            </p>
+                            {{ if modal_title }}
+                            <button type="button" class="btn btn-primary btn-primary-ccls rounded-pill "
+                                data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                {{ main_cta | sanitize }}
+                            </button>
+                            {{ /if }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-7 col-md-12">
+                    <div class="ban-txt1 py-2 px-1">
+                        <h2 class="section-title my-2">
+                            {{ carrusel_title | sanitize | nl2br }}
+                        </h2>
+                    </div>
+
+                    <div class="ban-card">
+                        <div class="card-body">
+                            <div class="owl2 owl-carousel owl-theme">
+                                {{ carrusel_cards }}
+                                    <div class="item">
+                                        <div class="row">
+                                            <div class="col-lg-12 col-12 col-12">
+                                                <div class="ban-card-txt">
+                                                    <h5>
+                                                        {{ card_title | sanitize | nl2br }}
+                                                    </h5>
+                                                    <p>
+                                                        {{ card_description | sanitize | nl2br }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a class="ccl-link-f1 d-block text-end" style="font-size:13px;" href="{{ url }}">
+                                            {{ card_cta }}
+                                        </a>
+                                    </div>
+                                {{ /carrusel_cards }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {{ replicator_field  }}
+                        <p>{{ text_field }}</p>
+                        {{ /replicator_field }}
+
+                <div class="col-12 mt-5">
+                    <div class="row justify-content-center aling-items-center aos-init aos-animate" data-aos="fade-up" data-aos-duration="3000">
+                        {{ menu_card }}
+                            <div class="col-6 col-md-4 col-lg-3 col-xl-2 mt-2 my-2">
+                                <div class="ban-card1">
+                                    <div class="card-body">
+                                        <i class="{{ icono_class }}"></i>
+
+                                        <h3>
+                                            {{ title_menu_card }}
+                                        </h3>
+                                        <a class="ban-new-sec-btn text-center" href="{{ url_menu_card }}">
+                                            {{ text_cta_menu_card }}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        {{ /menu_card }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Modal sobre información de ¿Qué es el proceso de conciliación laboral?-->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">
+                    {{ modal_title }}
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                {{ content_field_modal }}
+     
+                    {{ if type == "title_subcontent" }}
+                    
+                        {{ partial src="sets/title" }}
+                    
+                    {{ elseif type == "text_subcontent" }}
+                    
+                        {{ partial src="sets/paragraph" }}
+                    
+                    {{ elseif type == "image_content" }}
+                    
+                        {{ partial src="sets/image" }}
+                    
+                    {{ /if }}
+                    
+                {{ /content_field_modal }}
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-primary-ccls rounded-pill " data-bs-dismiss="modal">Cerrar</button>
+                <!-- <button type="button" class="btn btn-primary">Understood</button> -->
+            </div>
+        </div>
+    </div>
+</div>

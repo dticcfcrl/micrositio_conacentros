@@ -1,0 +1,22 @@
+{
+    "name": "meridiano/catalogs",
+    "autoload": {
+        "psr-4": {
+            "Meridiano\\Catalogs\\": "src"
+        }
+    },
+    "extra": {
+        "statamic": {
+            "name": "Catalogs",
+            "description": "Catalogs addon"
+        },
+        "laravel": {
+            "providers": [
+                "Meridiano\\Catalogs\\ServiceProvider"
+            ]
+        }
+    },
+    "require": {
+        "league/html-to-markdown": "^5.1"
+    }
+}

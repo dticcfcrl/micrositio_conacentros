@@ -1,0 +1,307 @@
+title: 'Paginas principales'
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+              validate:
+                - required
+          -
+            handle: main_title
+            field:
+              type: text
+              validate:
+                - required
+              display: 'Titlulo principal'
+              instructions: 'Es el título principal de la página. Aparecerá en grande en la parte izquierda.'
+              instructions_position: below
+              listable: hidden
+              visibility: visible
+              replicator_preview: true
+              input_type: text
+              placeholder: '¡Te damos la bienvenida...'
+              character_limit: 70
+              antlers: false
+              hide_display: false
+          -
+            handle: main_description
+            field:
+              type: textarea
+              antlers: false
+              display: 'Descripción principal'
+              instructions: 'Es el texto que aparecerá debajo del título principal.'
+              listable: hidden
+              instructions_position: below
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: main_cta
+            field:
+              input_type: text
+              character_limit: 25
+              antlers: false
+              type: text
+              display: 'Texto para botón principal'
+              instructions: 'Es el texto que aparecerá en el botón del Call To Action principal. Abre un modal con la información.'
+              listable: hidden
+              instructions_position: below
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: carrusel_title
+            field:
+              input_type: text
+              character_limit: 70
+              antlers: false
+              type: text
+              display: 'Título carrusel'
+              instructions: 'Es el título para el menú del carrusel para las opciones de navegación a las distintas páginas. Aparecerá por encima del contenido del menú.'
+              listable: hidden
+              instructions_position: below
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: carrusel_cards
+            field:
+              mode: default
+              create: true
+              type: entries
+              display: 'Páginas carrusel'
+              instructions: 'Listado de las páginas que se quieren agregar al carrusel.'
+              listable: hidden
+              instructions_position: below
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: menu_card
+            field:
+              collapse: false
+              previews: true
+              fullscreen: true
+              sets:
+                grupo:
+                  display: Grupo
+                  instructions: null
+                  icon: null
+                  sets:
+                    nuevo_contenido:
+                      display: 'Nuevo contenido'
+                      instructions: null
+                      icon: layout-grid-dots
+                      fields:
+                        -
+                          handle: title_menu_card
+                          field:
+                            input_type: text
+                            character_limit: 60
+                            antlers: false
+                            type: text
+                            display: 'Título del elemento'
+                            instructions: 'Título para indicar a qué página se va a redirigir'
+                            listable: hidden
+                            instructions_position: below
+                            visibility: visible
+                            replicator_preview: true
+                            hide_display: false
+                        -
+                          handle: icono_class
+                          field:
+                            input_type: text
+                            antlers: false
+                            type: text
+                            display: 'Ícono clase'
+                            instructions: 'Clase de la librería de font awesome para mostrar el ícono.'
+                            listable: hidden
+                            instructions_position: below
+                            visibility: visible
+                            replicator_preview: true
+                            hide_display: false
+                        -
+                          handle: text_cta_menu_card
+                          field:
+                            input_type: text
+                            character_limit: 20
+                            antlers: false
+                            type: text
+                            display: 'Texto para el botón del elemento'
+                            instructions: 'Texto para el botón del elemento'
+                            listable: hidden
+                            instructions_position: below
+                            visibility: visible
+                            replicator_preview: true
+                            hide_display: false
+                        -
+                          handle: url_menu_card
+                          field:
+                            type: link
+                            display: 'Página a redireccionar'
+                            instructions: 'URL o elemento de la página para redireccionar al usuario'
+                            listable: hidden
+                            instructions_position: below
+                            visibility: visible
+                            replicator_preview: true
+                            hide_display: false
+              type: replicator
+              display: 'Menú de acceso directos'
+              instructions: 'Contenidos para mostrar el menú para los accesos directos en la página'
+              listable: true
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+  sidebar:
+    display: Sidebar
+    sections:
+      -
+        fields:
+          -
+            handle: slug
+            field:
+              type: slug
+              localizable: true
+              validate: 'max:200'
+          -
+            handle: parent
+            field:
+              type: entries
+              collections:
+                - pages
+              max_items: 1
+              listable: false
+              localizable: true
+  model_content:
+    display: 'Contenido modal'
+    sections:
+      -
+        display: Contenido
+        instructions: 'Contenido para el modal del botón "conoce más" principal. El modal es la ventana emergente que muestra un contenido adicional.'
+        fields:
+          -
+            handle: modal_title
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: Título
+              instructions: 'Título del modal.'
+              listable: hidden
+              instructions_position: below
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: content_field_modal
+            field: dynamic_general_generator.content_field
+            config:
+              sets:
+                group_content:
+                  display: Grupo
+                  instructions: null
+                  icon: dashboard-layout
+                  sets:
+                    title_subcontent:
+                      display: Título
+                      instructions: null
+                      icon: form-text-field
+                      fields:
+                        -
+                          handle: subtitle
+                          field:
+                            input_type: text
+                            antlers: false
+                            type: text
+                            display: Encabezado
+                            instructions: 'Subtítulo para el contenido.'
+                            listable: hidden
+                            instructions_position: below
+                            visibility: visible
+                            replicator_preview: true
+                            hide_display: false
+                    text_subcontent:
+                      display: Párrafo
+                      instructions: null
+                      icon: text-formatting-initial-letter
+                      fields:
+                        -
+                          handle: textarea_subcontent
+                          field:
+                            buttons:
+                              - bold
+                              - italic
+                              - unorderedlist
+                              - orderedlist
+                              - removeformat
+                              - quote
+                              - anchor
+                              - image
+                              - table
+                              - underline
+                              - small
+                              - superscript
+                              - subscript
+                              - horizontalrule
+                              - alignleft
+                              - aligncenter
+                              - alignright
+                              - alignjustify
+                            smart_typography: false
+                            save_html: false
+                            inline: false
+                            toolbar_mode: fixed
+                            reading_time: false
+                            word_count: false
+                            fullscreen: true
+                            allow_source: true
+                            enable_input_rules: true
+                            enable_paste_rules: true
+                            remove_empty_nodes: false
+                            antlers: false
+                            link_noopener: false
+                            link_noreferrer: false
+                            target_blank: false
+                            always_show_set_button: false
+                            collapse: false
+                            previews: true
+                            type: bard
+                            display: Conenido
+                            instructions: 'Párrafo para agregar al contenido de la página.'
+                            listable: hidden
+                            instructions_position: above
+                            visibility: visible
+                            replicator_preview: true
+                            hide_display: false
+                    image_content:
+                      display: Imagen
+                      instructions: null
+                      icon: media-image-picture-orientation
+                      fields:
+                        -
+                          handle: image
+                          field:
+                            max_files: 1
+                            min_files: 1
+                            mode: list
+                            container: assets
+                            restrict: false
+                            allow_uploads: true
+                            show_filename: true
+                            show_set_alt: true
+                            type: assets
+                            display: 'Imagen a mostrar'
+                            instructions: 'Imagen para agregar a la sección.'
+                            listable: hidden
+                            instructions_position: above
+                            visibility: visible
+                            replicator_preview: true
+                            hide_display: false
+              display: Contenido

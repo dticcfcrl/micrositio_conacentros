@@ -1,0 +1,23 @@
+---
+id: 975c4df2-444f-4287-9f15-18208b3d05e6
+blueprint: informative_page
+title: '¿Qué situaciones cuentan como riesgo de trabajo y qué amerita incapacidad?'
+content_items:
+  -
+    id: lx6n29mh
+    textarea_subcontent: '<p style="text-align: justify;">Es derecho de las y los trabajadores contar con un espacio seguro e higiénico en el centro de trabajo que les proteja de cualquier riesgo. Es obligación de la persona empleadora adoptar medidas y acciones adecuadas para la prevención oportuna de accidentes y de enfermedades relacionadas con el trabajo.</p><p style="text-align: justify;"></p><p style="text-align: justify;"><strong>¿Qué son los riesgos de trabajo?</strong></p><p style="text-align: justify;">Son los accidentes y/o enfermedades a las que se exponen o pueden exponerse las y los trabajadores por motivo de su trabajo. Estos riesgos pueden estar presentes en el traslado, instalaciones, reuniones fuera del lugar físico de trabajo, entre otros.</p><p style="text-align: justify;"></p><p style="text-align: justify;"><strong>¿Qué diferencia hay entre las enfermedades y accidentes de trabajo, y los que no son de trabajo?</strong></p><p style="text-align: justify;">Para que las enfermedades y accidentes se consideren de trabajo tienen que haber ocurrido en la empresa, o bien, por motivo o causa del trabajo.</p><p style="text-align: justify;"></p><p style="text-align: justify;"><strong>¿Qué tipos de riesgos pueden existir en el centro de trabajo?</strong></p><p style="text-align: justify;">Aunque los hay de diversos tipos, es posible considerar como principales riesgos de trabajo los siguientes:</p><p style="text-align: justify;">1. Psicosociales, como el estrés y la fatiga.</p><p style="text-align: justify;">2. Ergonómicos, como la postura no adecuada o el levantamiento de peso.</p><p style="text-align: justify;">3. Físicos, químicos y ambientales como el uso de sustancias nocivas, enfermedades causadas por virus o bacterias, catástrofes naturales.</p><p style="text-align: justify;">4. Mecánicos, como por el uso de máquinas, quemaduras, golpes, entre otros.</p><p style="text-align: justify;"></p><p style="text-align: justify;">En el lamentable caso de sufrir un <strong>accidente o enfermedad por riesgo de trabajo</strong>, las personas trabajadoras tienen derecho a:</p><p style="text-align: justify;">I. Asistencia médica y quirúrgica</p><p style="text-align: justify;">II. Rehabilitación</p><p style="text-align: justify;">III. Hospitalización, cuando el caso lo requiera</p><p style="text-align: justify;">IV. Medicamentos y material de curación</p><p style="text-align: justify;">V. Los aparatos de prótesis y ortopedia necesarios, y</p><p style="text-align: justify;">VI. Una indemnización según corresponda.</p><p style="text-align: justify;">La Federal del Trabajo define cuatro posibles resultados de los riesgos de trabajo:</p><p style="text-align: justify;">I. Incapacidad temporal</p><p style="text-align: justify;">II. Incapacidad permanente parcial</p><p style="text-align: justify;">III. Incapacidad permanente total, y</p><p style="text-align: justify;">IV. La muerte.</p><p style="text-align: justify;"></p><ul><li><p style="text-align: justify;">La incapacidad temporal equivale a la pérdida de facultades o aptitudes que imposibilita parcial o totalmente a una persona para desempeñar su trabajo por algún tiempo.</p></li><li><p style="text-align: justify;">La incapacidad permanente parcial es la disminución de las facultades o aptitudes de una persona para trabajar.</p></li><li><p style="text-align: justify;">La incapacidad permanente total es la pérdida de facultades o aptitudes de una persona que la imposibilita para desempeñar cualquier trabajo por el resto de su vida</p></li><li><p>El cálculo correspondiente a las indemnizaciones por riesgos de trabajo se realizará conforme a lo establecido en la <a target="_blank" href="https://www.diputados.gob.mx/LeyesBiblio/pdf/LFT.pdf">Ley Federal del Trabajo</a>.</p></li></ul>'
+    type: text_subcontent
+    enabled: true
+  -
+    id: lx6n6ckq
+    image: contenidos/infografias/ley-federal-de-trabajo.jpg
+    type: image
+    enabled: true
+card_title: '¿Qué diferencia hay entre las enfermedades y accidentes de trabajo, y los que no son de trabajo?'
+card_description: 'Para que las enfermedades y accidentes se consideren de trabajo tienen que haber ocurrido en la empresa, o bien, por motivo o causa del trabajo.'
+card_cta: 'Ver más'
+card_icon: contenidos/iconos/calculator.png
+updated_by: 455667be-b850-4ecd-a160-340a9a6370f6
+updated_at: 1721771049
+previous_page: 'entry::11130506-6d9d-4100-89ac-70ee980ba6df'
+---

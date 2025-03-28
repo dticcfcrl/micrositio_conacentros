@@ -1,0 +1,7 @@
+name: Administrador
+roles:
+  - administrator
+  - developer
+expiration_date: '2025-07-17'
+id: 455667be-b850-4ecd-a160-340a9a6370f6
+password_hash: $2y$10$PU./CQmZxUJ/6Bef.VD1LuYa9bxNYHjlacnvhh7YaXIzwjCeMrJsu

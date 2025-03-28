@@ -1,0 +1,811 @@
+title: Calculadora
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+              validate:
+                - required
+              display: Título
+              instructions_position: above
+              listable: hidden
+              visibility: visible
+              replicator_preview: true
+              input_type: text
+              antlers: false
+              hide_display: false
+          -
+            handle: politics
+            field:
+              fields:
+                -
+                  handle: title_politics
+                  field:
+                    input_type: text
+                    antlers: false
+                    type: text
+                    display: Título
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                -
+                  handle: subtitle_politics
+                  field:
+                    input_type: text
+                    antlers: false
+                    type: text
+                    display: Subtítulo
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                -
+                  handle: content_politics
+                  field:
+                    buttons:
+                      - h2
+                      - h3
+                      - bold
+                      - italic
+                      - unorderedlist
+                      - orderedlist
+                      - removeformat
+                      - quote
+                      - anchor
+                      - image
+                      - table
+                      - alignleft
+                      - aligncenter
+                      - alignright
+                      - alignjustify
+                    smart_typography: false
+                    save_html: true
+                    inline: false
+                    toolbar_mode: fixed
+                    reading_time: false
+                    word_count: false
+                    fullscreen: true
+                    allow_source: true
+                    enable_input_rules: true
+                    enable_paste_rules: true
+                    remove_empty_nodes: false
+                    antlers: false
+                    link_noopener: false
+                    link_noreferrer: false
+                    target_blank: false
+                    always_show_set_button: false
+                    collapse: false
+                    previews: true
+                    type: bard
+                    display: Contenido
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                -
+                  handle: cta_politics
+                  field:
+                    input_type: text
+                    antlers: false
+                    type: text
+                    display: 'Título de aceptación de políticas y términos'
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+              fullscreen: true
+              type: group
+              display: 'Políticas y términos de uso'
+              instructions: 'Grupo para la información relacionada con las políticas y términos de uso de la calculadora.'
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: informative
+            field:
+              fields:
+                -
+                  handle: title_informative
+                  field:
+                    input_type: text
+                    antlers: false
+                    type: text
+                    display: Título
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                -
+                  handle: subtitle_informative
+                  field:
+                    input_type: text
+                    antlers: false
+                    type: text
+                    display: Subtítulo
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                -
+                  handle: first_text_informative
+                  field:
+                    input_type: text
+                    antlers: false
+                    type: text
+                    display: 'Primer párrafo'
+                    instructions: 'Este párrafo terminará siempre con "salario base" con el objetivo de poner un tooltip con fines informativos.'
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                -
+                  handle: tooltip_text_informative
+                  field:
+                    antlers: false
+                    type: textarea
+                    display: 'Texto para tooltip'
+                    instructions: 'Es el texto que va a parecer en el tooltip de "salario base".'
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                -
+                  handle: content_informative
+                  field:
+                    buttons:
+                      - h2
+                      - h3
+                      - bold
+                      - italic
+                      - unorderedlist
+                      - orderedlist
+                      - removeformat
+                      - quote
+                      - anchor
+                      - image
+                      - table
+                      - alignleft
+                      - aligncenter
+                      - alignright
+                      - alignjustify
+                    smart_typography: false
+                    save_html: true
+                    inline: false
+                    toolbar_mode: fixed
+                    reading_time: false
+                    word_count: false
+                    fullscreen: true
+                    allow_source: true
+                    enable_input_rules: true
+                    enable_paste_rules: true
+                    remove_empty_nodes: false
+                    antlers: false
+                    link_noopener: false
+                    link_noreferrer: false
+                    target_blank: false
+                    always_show_set_button: false
+                    collapse: false
+                    previews: true
+                    type: bard
+                    display: Contenido
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+              fullscreen: true
+              type: group
+              display: 'Página informativa'
+              instructions: 'Grupo para la información relacionada con información adicional.'
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: salary_peridocity
+            field:
+              fields:
+                -
+                  handle: title_salary
+                  field:
+                    input_type: text
+                    antlers: false
+                    type: text
+                    display: 'Título o pregunta de salario'
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                -
+                  handle: title_periodicity
+                  field:
+                    input_type: text
+                    antlers: false
+                    type: text
+                    display: 'Título o pregunta de periodicidad'
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+              fullscreen: true
+              type: group
+              display: 'Salario y periodicidad'
+              instructions: 'Títulos de las preguntas para el monto del salario y la periodicidad de pago del trabajador.'
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: validation_group
+            field:
+              fields:
+                -
+                  handle: title_validation
+                  field:
+                    input_type: text
+                    antlers: false
+                    type: text
+                    display: Título
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                -
+                  handle: subtitle_validations
+                  field:
+                    input_type: text
+                    antlers: false
+                    type: text
+                    display: Subtítulo
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                -
+                  handle: daily_salary_text
+                  field:
+                    input_type: text
+                    antlers: false
+                    type: text
+                    display: 'Texto de salario diario'
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                -
+                  handle: text_validation
+                  field:
+                    input_type: text
+                    antlers: false
+                    type: text
+                    display: 'Texto de confirmación'
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+              fullscreen: true
+              type: group
+              display: 'Página de validación'
+              instructions: 'Grupo para la página de validación con el objetivo de comprobar si se ingresó correctamente el salario diario.'
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: border_zone_profesions
+            field:
+              fields:
+                -
+                  handle: title_border_zone
+                  field:
+                    input_type: text
+                    antlers: false
+                    type: text
+                    display: 'Título o pregunta de la zona fronteriza'
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                -
+                  handle: title_modal_border_zones
+                  field:
+                    input_type: text
+                    antlers: false
+                    type: text
+                    display: 'Título modal zonas fronterizas'
+                    instructions: 'Es el texto que se mostrará para desplegar el modal con el mapa o contenido de los lugares de la zona fronteriza.'
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                -
+                  handle: title_profesion
+                  field:
+                    input_type: text
+                    antlers: false
+                    type: text
+                    display: 'Título o pregunta de oficio del trabajador'
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+              fullscreen: true
+              type: group
+              display: 'Zona fronterizo y oficios'
+              instructions: 'Títulos de las preguntas para la zona fronteriza y el oficio del trabajador.'
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: period_labor
+            field:
+              fields:
+                -
+                  handle: title_start_date
+                  field:
+                    input_type: text
+                    antlers: false
+                    type: text
+                    display: 'Título o pregunta sobre la fecha de ingreso al trabajo'
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                -
+                  handle: title_current_labor_validator
+                  field:
+                    input_type: text
+                    antlers: false
+                    type: text
+                    display: 'Texto de confirmación de continuar laborando'
+                    instructions: 'Es el texto que se mostrará para indicar si la fecha de salida será considerada a la fecha actual.'
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                -
+                  handle: explanation_labor
+                  field:
+                    antlers: false
+                    type: textarea
+                    display: 'Explicación sobre si continúa laborando'
+                    instructions: 'Explicación sobre la pregunta de validación si continúa laborando o se toma alguna otra fecha.'
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                -
+                  handle: title_date_end
+                  field:
+                    input_type: text
+                    antlers: false
+                    type: text
+                    display: 'Título o pregunta sobre la fecha de salida del trabajo'
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+              fullscreen: true
+              type: group
+              display: 'Fechas laborales'
+              instructions: 'Títulos de las preguntas para sobre la fecha de entrada y salida del trabajador.'
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: result_content
+            field:
+              fields:
+                -
+                  handle: title_details_result
+                  field:
+                    input_type: text
+                    antlers: false
+                    type: text
+                    display: 'Título para detalles'
+                    listable: hidden
+                    instructions_position: below
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                    instructions: 'Título que aparecerá al inicio para mostrar los detalles que se ingresaron.'
+                    default: 'Información para el cálculo'
+                -
+                  handle: details_text_content
+                  field:
+                    fields:
+                      -
+                        handle: start_date_text
+                        field:
+                          input_type: text
+                          default: 'Fecha inicio'
+                          antlers: false
+                          type: text
+                          display: 'Texto de fecha de inicio'
+                          instructions: 'Texto para el campo de detalle de la fecha de inicio de labores ingresado.'
+                          width: 50
+                          listable: hidden
+                          instructions_position: below
+                          visibility: visible
+                          replicator_preview: true
+                          hide_display: false
+                      -
+                        handle: end_date_text
+                        field:
+                          input_type: text
+                          default: 'Fecha salida'
+                          antlers: false
+                          type: text
+                          display: 'Texto de fecha de salida'
+                          instructions: 'Texto para indicar cuando fue la fecha de salida que ingresó.'
+                          width: 50
+                          listable: hidden
+                          instructions_position: below
+                          visibility: visible
+                          replicator_preview: true
+                          hide_display: false
+                      -
+                        handle: years_old_text
+                        field:
+                          input_type: text
+                          default: 'Años de antigüedad'
+                          antlers: false
+                          type: text
+                          display: 'Texto de años de antigüedad'
+                          instructions: 'Texto para el detalle de años de antigüedad en el lugar. (Valor calculado con la fecha de ingreso y de salida).'
+                          width: 50
+                          listable: hidden
+                          instructions_position: below
+                          visibility: visible
+                          replicator_preview: true
+                          hide_display: false
+                      -
+                        handle: border_zone_text
+                        field:
+                          input_type: text
+                          default: 'Zona fronteriza'
+                          antlers: false
+                          type: text
+                          display: 'Texto de zona fronteriza'
+                          instructions: 'Texto que indica si se ingresó que pertenece o no a la zona fronteriza.'
+                          width: 50
+                          listable: hidden
+                          instructions_position: below
+                          visibility: visible
+                          replicator_preview: true
+                          hide_display: false
+                      -
+                        handle: minimum_salary_text
+                        field:
+                          input_type: text
+                          default: 'Salario mínimo'
+                          antlers: false
+                          type: text
+                          display: 'Texto de salario mínimo'
+                          instructions: 'Texto para indicar el salario mínimo a la fecha de salida ingresado.'
+                          width: 50
+                          listable: hidden
+                          instructions_position: below
+                          visibility: visible
+                          replicator_preview: true
+                          hide_display: false
+                      -
+                        handle: daily_salary_text
+                        field:
+                          input_type: text
+                          default: 'Salario diario'
+                          antlers: false
+                          type: text
+                          display: 'Texto de salario diario'
+                          instructions: 'Texto que indica el salario diario calculado con el salario dividido por la periodicidad ingresada.'
+                          width: 50
+                          listable: hidden
+                          instructions_position: below
+                          visibility: visible
+                          replicator_preview: true
+                          hide_display: false
+                      -
+                        handle: profesion_text
+                        field:
+                          input_type: text
+                          default: Profesión
+                          antlers: false
+                          type: text
+                          display: 'Texto de profesión'
+                          instructions: 'Texto que indica la profesión ingresada. En caso de no existir se pondrá un "-" como valor.'
+                          listable: hidden
+                          instructions_position: below
+                          visibility: visible
+                          replicator_preview: true
+                          hide_display: false
+                    fullscreen: true
+                    type: group
+                    display: 'Texto por detalle'
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                -
+                  handle: title_table_result
+                  field:
+                    input_type: text
+                    default: Resultado
+                    antlers: false
+                    type: text
+                    display: 'Título de tabla de resultados'
+                    instructions: 'Título de la tabla de resultados del cálculo.'
+                    listable: hidden
+                    instructions_position: below
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                -
+                  handle: title_explanation
+                  field:
+                    input_type: text
+                    default: 'Explicación del cálculo'
+                    antlers: false
+                    type: text
+                    display: 'Título para botón de explicación'
+                    instructions: 'Título para el botón de explicación del cálculo.'
+                    listable: hidden
+                    instructions_position: below
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                -
+                  handle: title_download
+                  field:
+                    input_type: text
+                    default: 'Descargar cálculo'
+                    antlers: false
+                    type: text
+                    display: 'Título para botón descarga'
+                    instructions: 'Título para el botón de descarga del PDF.'
+                    listable: hidden
+                    instructions_position: below
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                    width: 50
+                -
+                  handle: title_edit
+                  field:
+                    input_type: text
+                    default: 'Editar datos'
+                    antlers: false
+                    type: text
+                    display: 'Título para botón editar datos'
+                    instructions: 'Título para el botón de descarga del editar datos.'
+                    listable: hidden
+                    instructions_position: below
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                    width: 50
+                -
+                  handle: title_other_amount
+                  field:
+                    input_type: text
+                    antlers: false
+                    type: text
+                    display: 'Título calculo de otros procentajes'
+                    instructions: 'Título que se muestra en la sección del cálculo de 90% al 50%'
+                    listable: hidden
+                    instructions_position: below
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                -
+                  handle: leyend_text
+                  field:
+                    buttons:
+                      - bold
+                      - italic
+                      - unorderedlist
+                      - orderedlist
+                      - removeformat
+                      - quote
+                      - anchor
+                      - alignleft
+                      - aligncenter
+                      - alignright
+                      - alignjustify
+                    smart_typography: false
+                    save_html: false
+                    inline: false
+                    toolbar_mode: fixed
+                    reading_time: false
+                    word_count: false
+                    fullscreen: true
+                    allow_source: true
+                    enable_input_rules: true
+                    enable_paste_rules: true
+                    remove_empty_nodes: false
+                    antlers: false
+                    link_noopener: false
+                    link_noreferrer: false
+                    target_blank: false
+                    always_show_set_button: false
+                    collapse: false
+                    previews: true
+                    type: bard
+                    display: Leyenda
+                    instructions: 'Texto que sirve como leyenda en la parte inferior de la tabla de resultados.'
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                -
+                  handle: title_important_note
+                  field:
+                    input_type: text
+                    default: 'Nota Importante'
+                    antlers: false
+                    type: text
+                    display: 'Título para Nota'
+                    instructions: 'Título para la sección de notas al término de la tabla.'
+                    listable: hidden
+                    instructions_position: below
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                -
+                  handle: text_important_note
+                  field:
+                    buttons:
+                      - bold
+                      - italic
+                      - unorderedlist
+                      - orderedlist
+                      - removeformat
+                      - quote
+                      - anchor
+                      - alignleft
+                      - aligncenter
+                      - alignright
+                      - alignjustify
+                    smart_typography: false
+                    save_html: false
+                    inline: false
+                    toolbar_mode: fixed
+                    reading_time: false
+                    word_count: false
+                    fullscreen: true
+                    allow_source: true
+                    enable_input_rules: true
+                    enable_paste_rules: true
+                    remove_empty_nodes: false
+                    antlers: false
+                    link_noopener: false
+                    link_noreferrer: false
+                    target_blank: false
+                    always_show_set_button: false
+                    collapse: false
+                    previews: true
+                    type: bard
+                    display: 'Texto para la nota'
+                    instructions: 'Texto para el contenido de la nota.'
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+              fullscreen: true
+              type: group
+              display: Resultados
+              instructions: 'Sección de resultados del cálculo.'
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+  sidebar:
+    display: Sidebar
+    sections:
+      -
+        fields:
+          -
+            handle: slug
+            field:
+              type: slug
+              localizable: true
+              validate: 'max:200'
+          -
+            handle: template
+            field:
+              hide_partials: true
+              blueprint: false
+              type: template
+              display: Plantilla
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+              folder: complex_pages
+  content_modal_border_zones:
+    display: 'Contenido modal zonas fronterizas'
+    sections:
+      -
+        display: Contenido
+        instructions: 'Contenido para el modal las locaciones de zonas fronterizas. Se muestra en el botón de "mostrar municipios"'
+        fields:
+          -
+            handle: title_modal_border_zone
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: Título
+              instructions: 'Título principal del modal.'
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: content_field_modal_border_zone
+            field: dynamic_general_generator.content_field
+  modal_content:
+    display: 'Contenido modal explicación'
+    sections:
+      -
+        display: Contenido
+        instructions: 'Contenido para el modal de explicaciones en la parte de resultados. Se muestra en el botón de "explicación de cálculo"'
+        fields:
+          -
+            handle: title_modal_explanation
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: Título
+              instructions: 'Título principal del modal.'
+              listable: hidden
+              instructions_position: below
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: content_field_modal_explanation
+            field: dynamic_general_generator.content_field

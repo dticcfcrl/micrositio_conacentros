@@ -1,0 +1,291 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.9.2/parsley.min.js"
+    integrity="sha512-eyHL1atYNycXNXZMDndxrDhNAegH2BDWt1TmkXJPoGf1WLlNYt08CSjkqF5lnCRmdm3IrkHid8s2jOUY4NIZVQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+    integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+    $(function () {
+        $("#div_fechaterminacion").hide();
+        $("#btn_prev").hide();
+
+        $('#laboraActualmente').change(function () {
+            let checked = $(this).is(':checked');
+            if (checked) {
+                $("#div_fechaterminacion").hide();
+                $("#fechaTerminacion").val("");
+            } else {
+                $("#div_fechaterminacion").show();
+            }
+        });
+
+        function ReplaceNumberWithCommas(number) {
+            number = Math.round(number * 100) / 100;
+            var n = number.toString().split(".");
+            n[0] = n[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            return n.join(".");
+        }
+
+        function obtener_salario_minimo() {
+            let dias = parseInt($('input[type=radio][name=periodicidad_id]:checked').attr("data-days"));
+            let monto = $("#salario")[0].value;
+
+            let salario_diario = parseFloat(monto / dias);
+            $("#salarioDiario").text(ReplaceNumberWithCommas(salario_diario));
+
+        }
+
+        var $sections = $('.form-section');
+
+        function navigateTo(index) {
+
+            $sections.removeClass('current').eq(index).addClass('current');
+
+            var attr_salary = $sections.eq(index).attr("data-calculate");
+            if (attr_salary == "True") {
+                obtener_salario_minimo();
+            }
+
+            $('.form-navigation .previous').toggle(index > 0);
+            var atTheEnd = index >= $sections.length - 1;
+            $('.form-navigation .next').toggle(!atTheEnd);
+            $('.form-navigation .submit').toggle(atTheEnd);
+        }
+
+        function curIndex() {
+            return $sections.index($sections.filter('.current'));
+        }
+
+        $('.form-navigation .previous').click(function () {
+            $([document.documentElement, document.body]).animate({
+                scrollTop: $("#principal").offset().top - 50
+            }, 100);
+
+            navigateTo(curIndex() - 1);
+        });
+
+        $('.form-navigation .next').click(function () {
+            $([document.documentElement, document.body]).animate({
+                scrollTop: $("#principal").offset().top - 50
+            }, 100);
+            $('#form_calculo').parsley().whenValidate({
+                group: 'block-' + curIndex()
+            }).done(function () {
+                navigateTo(curIndex() + 1);
+            });
+
+        });
+
+        $sections.each(function (index, section) {
+            $(section).find(':input').attr('data-parsley-group', 'block-' + index);
+        });
+
+        navigateTo(0);
+
+        $("#form_calculo").submit(function (e) {
+            e.preventDefault();
+
+            let fecha_ingreso = $("#fechaIngreso").val();
+            let fecha_salida = $("#fechaTerminacion").val();
+
+            let validacion_remuneracion = $("#salario").val() != '';
+            let validacion_fecha_ingreso = fecha_ingreso != '';
+            let validacion_fecha_salida = true;
+            let validacion_fechas = false;
+
+            if ($("#laboraActualmente").is(':not(:checked)')) {
+                validacion_fecha_salida = fecha_salida != '';
+                validacion_fechas = new Date(fecha_ingreso) < new Date(fecha_salida);
+            } else {
+                validacion_fechas = new Date(fecha_ingreso + ' 23:59:59') < new Date(Date.now());
+            }
+
+            validad_campos(validacion_remuneracion, validacion_fecha_ingreso, validacion_fecha_salida,
+                validacion_fechas);
+            let validacion_campos = validacion_remuneracion && validacion_fecha_ingreso &&
+                validacion_fecha_salida;
+            if (validacion_campos && validacion_fechas) {
+                let form = $(this);
+                let actionUrl = form.attr('action');
+
+                $.ajax({
+                    type: "POST",
+                    url: actionUrl,
+                    data: form.serialize(),
+                    success: function (datos) {
+                        llenar_propuesta_completa(datos.completa);
+                        llenar_propuesta_parcial(datos);
+                        llenar_detalle(datos);
+                        llenar_propuestas(datos);
+                        $('#calculo').hide();
+                        $('#resultado').removeClass("d-none").show();
+                        $('html, body').animate({
+                            scrollTop: $("#principal").offset().top - 50
+                        }, 50);
+                    }
+                });
+            } else {
+                let mensaje = "Debes llenar los campos faltantes";
+
+                if (!validacion_fechas && validacion_campos) {
+                    mensaje =
+                        "La fecha de ingreso no puede ser menor o igual a la fecha de salida. Tampoco puede ser igual a la fecha actual";
+                }
+
+                Swal.fire({
+                    icon: "error",
+                    title: "ADVERTENCIA",
+                    text: mensaje,
+                });
+
+                return false;
+            }
+        });
+
+
+
+        function validad_campos(validacion_remuneracion, vaidacion_fecha_ingreso, validacion_fecha_salida) {
+            if (!validacion_remuneracion) {
+                $("#salario").addClass("is-invalid");
+            } else {
+                $("#salario").removeClass("is-invalid");
+            }
+
+            if (!vaidacion_fecha_ingreso) {
+                $("#fechaIngreso").addClass("is-invalid");
+            } else {
+                $("#fechaIngreso").removeClass("is-invalid");
+            }
+
+            if (!validacion_fecha_salida) {
+                $("#fechaTerminacion").addClass("is-invalid");
+            } else {
+                $("#fechaTerminacion").removeClass("is-invalid");
+            }
+
+        }
+
+        $("#editar_salarioDiario").click(function () {
+            navigateTo(2);
+            $('input[type=radio][name=periodicidad_id]').prop('checked', false);;
+            $("#salario").val("");
+        });
+
+        $("#btn_next").click(function () {
+            $("#btn_next").hide();
+            $("#btn_prev").show();
+            $(".propuesta_completa").hide();
+            $(".propuesta_parcial").removeClass("d-none").show();
+        });
+
+        $("#btn_prev").click(function () {
+            $("#btn_prev").hide();
+            $("#btn_next").show();
+            $(".propuesta_parcial").hide();
+            $(".propuesta_completa").show();
+        });
+
+        $("#editar").click(function () {
+            $('#calculo').show();
+            $('#resultado').hide();
+            vaciar_propuesta_completa();
+            vaciar_propuesta_parcial();
+            navigateTo(2);
+        });
+
+        function llenar_propuesta_completa(datos) {
+            $('#indemizacion_completa').html(datos.indemnizacion);
+            $('#aguinaldo_completa').html(datos.aguinaldo);
+            $('#vacaciones_completa').html(datos.vacaciones);
+            $('#prima_vacacional_completa').html(datos.prima_vacacional);
+            $('#prima_antiguedad_completa').html(datos.prima_antiguedad);
+            $('#total_completa').html(datos.total);
+        }
+
+        function llenar_propuesta_parcial(datos) {
+            let texto = datos.anios_antiguedad >= 15 ? 'Derecho <br class="d-sm-block d-md-none"> irrenunciable' : 'Compensación <br class="d-sm-block d-md-none"> negociable';
+            let clase = datos.anios_antiguedad >= 15 ? 'text-green' : 'text-orange';
+
+            $('#prima_antiguedad_text').removeClass("text-green").removeClass("text-orange").addClass(clase);
+            $('#prima_antiguedad_parcial').removeClass("text-green").removeClass("text-orange").html(texto).addClass(clase);
+        }
+
+        function llenar_detalle(datos) {
+            $('#detalle_fecha_inicio').html(datos.fechaInicio)
+            $('#detalle_fecha_salida').html(datos.fechaSalida)
+            let texto = datos.anios_antiguedad >= 15 ? "15 años o más" : "menos de 15 años";
+            $('#detalle_antiguedad').html(texto)
+            $('#detalle_salario_minimo').html(datos.salarioMinimo)
+            $('#detalle_salario_diario').html(datos.remuneracionDiaria)
+            $('#detalle_zona').html(datos.zona_fronteriza)
+            $('#detalle_profesion').html(datos.profesion)
+        }
+
+        function llenar_propuestas(datos) {
+            $('#total_90').html(datos.al90.total)
+            $('#total_80').html(datos.al80.total)
+            $('#total_70').html(datos.al70.total)
+            $('#total_60').html(datos.al60.total)
+            $('#total_50').html(datos.al50.total)
+        }
+
+        function vaciar_propuesta_completa() {
+            $('#indemizacion_completa').html("");
+            $('#aguinaldo_completa').html("");
+            $('#vacaciones_completa').html("");
+            $('#prima_vacacional_completa').html("");
+            $('#prima_antiguedad_completa').html("");
+            $('#total_completa').html("");
+        }
+
+        function vaciar_propuesta_parcial() {
+            $('#prima_antiguedad_parcial').html("");
+        }
+
+        function vaciar_propuestas() {
+            $('#total_90').html("")
+            $('#total_80').html("")
+            $('#total_70').html("")
+            $('#total_60').html("")
+            $('#total_50').html("")
+        }
+
+        $("#pdf").on("click", function () {
+            let form = $("#form_calculo");
+
+            $.ajax({
+                    type: "POST",
+                    url: "{{ route:calculo-pdf }}",
+                    data: form.serialize(),
+                    success: function (html) {
+                        let opt = {
+                                    margin: 1,
+                                    filename: 'calculo.pdf',
+                                    image: {
+                                        type: 'jpeg',
+                                        quality: 0.98
+                                    },
+                                    html2canvas: {
+                                        scale: 2,
+                                        scrollY: 0
+                                    },
+                                    jsPDF: {
+                                        unit: 'cm',
+                                        format: 'A4',
+                                        orientation: 'portrait'
+                                    },
+                                    pagebreak: {
+                                        before: '#modalExplanationContent'
+                                    }
+                                };
+
+                        html2pdf().set(opt).from(html).save();
+                    }
+                });
+
+            
+        });
+    });
+
+</script>

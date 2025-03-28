@@ -1,0 +1,918 @@
+<script>
+    window.addEventListener('load', generarCaptcha());
+    document.getElementById('calendar').innerHTML = "<div class='alert alert-info text-center' role='alert'>Seleccione entidad y oficina</div>";
+    document.getElementById('_cclHoraButton').innerHTML = "<div class='alert alert-info' role='alert'>Seleccione fecha</div>";
+    let _continuarCita =  document.getElementById('continuarCita');
+    
+    let _cclTimer = document.getElementById('_cclTimer');
+    _cclTimer.innerHTML='05:00'; 
+    let iTimer = 0; 
+    
+    let _form_cita = document.getElementById('form_cita');    
+
+    const jv_cclEstados =  _form_cita._cclEstados;
+    const jv_cclOficinas =  _form_cita._cclOficinas.selectedOptions[0].text;
+    const jv_cclNombre = _form_cita._cclNombre;
+    const jv_cclApellidos = _form_cita._cclApellidos;
+    const jv_cclFecha = _form_cita._cclFecha;
+    const jv_cclCorreo = _form_cita._cclCorreo;
+    const jv_cclCelular = _form_cita._cclCelular;
+    const jv_cclObservaciones = _form_cita._cclObservaciones;
+    const jv_recaptcha = _form_cita._recaptcha;
+    const jv_cclAviso = _form_cita._cclAviso;
+    let alertasColor = '#C04F15';
+
+    function valObservaciones(caracteres){
+      let len = caracteres.value.length;
+      document.getElementById('carRestantes').innerHTML = 'Max: ' + len + '/128';
+    }
+    
+    
+    /* Validamos lo campos input */
+    const validarCamposFormulario = (campoTipo, campoRequerido, e) => {
+      const campo = e.target;
+      const valorCampo = e.target.value.trim();      
+      switch(campoTipo){
+        case 'select':            
+          if(valorCampo == 'Seleccione entidad'){
+            document.getElementById(campoRequerido).innerHTML = `requerido`;
+          }else{
+            document.getElementById(campoRequerido).innerHTML = '';
+            const jv_cclOficinas =  _form_cita._cclOficinas.selectedOptions[0].text;
+          }
+        break;        
+        case 'input':            
+          if(valorCampo.length < 4 && campoRequerido != '_cclObservacionesRequerido'){
+            document.getElementById(campoRequerido).innerHTML = `requerido`;
+          }else{
+            document.getElementById(campoRequerido).innerHTML = '';
+          }
+        break;
+        case 'check':
+          if(!e.target.checked){
+            document.getElementById(campoRequerido).innerHTML = `requerido`;
+          }else{
+            document.getElementById(campoRequerido).innerHTML = '';
+          }
+        break;
+      }
+      habilitarAgenda();
+    }
+
+    /* Validamos expresión correo */
+    const validarCampoEmail = e => {
+      const campo = e.target;
+      const valorCampo = e.target.value.trim();
+      const regexEmail = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/);
+      if(valorCampo.length > 0 && !regexEmail.test(valorCampo)){
+        document.getElementById('_cclCorreoRequerido').innerHTML = `correo no válido`;
+      }else{
+        document.getElementById('_cclCorreoRequerido').innerHTML = '';
+      }      
+      habilitarAgenda();
+    }
+    
+    
+    /* Validamos número celular */
+    const validarCampoCelular = e => {
+      const campo = e.target;
+      const valorCampo = e.target.value.trim();
+      const regexCel = new RegExp(/^[0-9]{10}$/);
+      if(valorCampo.length > 0 && !regexCel.test(valorCampo)){
+        document.getElementById('_cclNumeroRequerido').innerHTML = `número no válido`;        
+      }else{
+        document.getElementById('_cclNumeroRequerido').innerHTML = '';
+      }      
+      habilitarAgenda();
+    }
+
+    /*Limpiar placeholder*/
+    const limpiarPlaceholder = (e) => {
+        e.target.placeholder = '';
+    }
+
+    /*Colocar placeholder*/
+    const colocarPlaceholder = (placeholder, e) => {
+      e.target.placeholder = placeholder;
+    }
+
+    /* Se válida correo */    
+    jv_cclCorreo.addEventListener("input", validarCampoEmail);
+
+    /*Se limpia placeholder*/
+    jv_cclCorreo.addEventListener("click", (e) => limpiarPlaceholder(e));
+    jv_cclCorreo.addEventListener("focus", (e) => limpiarPlaceholder(e));
+
+    /*Se coloca place holder*/
+    jv_cclCorreo.addEventListener("blur", (e) => colocarPlaceholder('micorreo@midominio.com', e));
+    
+    /* Se válida número celular */    
+    jv_cclCelular.addEventListener("input", validarCampoCelular);
+
+    /*Se limpia placeholder*/
+    jv_cclCelular.addEventListener("click", (e) => limpiarPlaceholder(e));
+    jv_cclCelular.addEventListener("focus", (e) => limpiarPlaceholder(e));
+
+    /*Se coloca place holder*/
+    jv_cclCelular.addEventListener("blur", (e) => colocarPlaceholder('Ingrese su teléfono', e));
+
+    /* Se válida nombre */
+    jv_cclNombre.addEventListener("input", (e) => validarCamposFormulario('input','_cclNombreRequerido', e));
+    
+    /* Se válida apellidos */
+    jv_cclApellidos.addEventListener("input", (e) => validarCamposFormulario('input','_cclApellidosRequerido', e));
+
+    /* Se válida observaciones */    
+    jv_cclObservaciones.addEventListener("input", (e) => validarCamposFormulario('input','_cclObservacionesRequerido', e));
+
+    /*Se limpia placeholder*/
+    jv_cclObservaciones.addEventListener("click", (e) => limpiarPlaceholder(e));
+    jv_cclObservaciones.addEventListener("focus", (e) => limpiarPlaceholder(e));
+
+    /*Se coloca place holder*/
+    jv_cclObservaciones.addEventListener("blur", (e) => colocarPlaceholder('¿Necesita que el Conciliador conozca información sobre usted?', e));
+
+
+    /*Se valida captcha ingresado*/  
+    jv_recaptcha.addEventListener("input", (e) => validarCamposFormulario('input','_cclCaptachaRequerido', e));
+
+    /* Se válida checkbox */
+    jv_cclAviso.addEventListener('input', (e) => validarCamposFormulario('check', '_cclAvisoRequerido', e));
+
+  /**
+   * Verificamos si viene algún parametro por GET 
+   * Estado: Nombre del estado
+   * id: id del CCL
+   * Llenamos el select de entidad y a su vez se llena el de CCL y fechas
+  */
+  let params = new URLSearchParams(document.location.search);
+  if (params !== "") {
+    let estadoDesdeMap = params.get("estado"); // estado del ccl
+    let idCCLDesdeMap = params.get("id"); // id del ccl
+    //alert(estadoDesdeMap + " "+ idCCLDesdeMap);
+    if (estadoDesdeMap !== "") {
+      obtenerCcls(estadoDesdeMap, 0);
+      const selectElement = document.getElementById('_cclEstados');
+
+      // 4. Recorrer las opciones y marcar la coincidente
+      for (let i = 0; i < selectElement.options.length; i++) {
+        if (selectElement.options[i].value === estadoDesdeMap) {
+          selectElement.options[i].selected = true;
+          break; // Salir del bucle una vez encontrado
+        }
+      }
+    }
+  }
+
+  function mensajeProcesando() {
+    Swal.fire({
+      title: "Procesando",
+      text: "Espere, por favor",
+      icon: "info",
+      iconColor: alertasColor,
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+      },
+      allowOutsideClick: false
+    });
+    Swal.showLoading();
+  }
+
+  function cerrarMensajeProcesando() {
+    setTimeout(() => {
+      Swal.close();
+    }, 1500);
+  }
+  /**
+   * Obtener el estado desde el select 
+   * desde-> indica si vienen paramentos desde el mapa  
+   * 0: con parametros
+   * 1: sin parametros
+  */
+  function obtenerCcls(selectEstado, desde) {
+
+    document.getElementById('_cclHoraButton').innerHTML = "<div class='alert alert-info' role='alert'>Seleccione una fecha</div>";
+    document.getElementById('calendar').innerHTML = "<div class='alert alert-info text-center' role='alert'>Seleccione una entidad y oficina</div>";
+
+    if (desde == 1) {
+      entidadSeleccionada = selectEstado.value;
+    }
+
+
+    if (desde == 0) {
+      entidadSeleccionada = selectEstado;
+    }
+
+    if (entidadSeleccionada) {
+      mensajeProcesando();
+      fetch(`../../../ccls/${entidadSeleccionada}/oficinas`)
+        .then(res => {
+          return res.json();
+        })
+        .then(function (resCcls) {
+          cerrarMensajeProcesando();
+          listarCclsOficinas(resCcls);
+        })
+    }
+  }
+
+  function listarCclsOficinas(ccls) {
+    let cclOficinas = document.getElementById('_cclOficinas');
+    limpiarCclsOficinascl(cclOficinas);
+
+    let opcionCcl = document.createElement('option');
+    opcionCcl.value = "";
+    opcionCcl.innerHTML = "Seleccione una oficina";
+    cclOficinas.append(opcionCcl);
+
+    ccls.forEach(e => {
+      let params = new URLSearchParams(document.location.search);
+      let id = params.get("id");
+      let direccion_corta = e.direccion.split(',');
+      let opcionCcl = document.createElement('option');
+      opcionCcl.value = e.id;
+      opcionCcl.setAttribute('data-liga_local', e.liga_cita_local || '');
+      if (id !== "" && e.id == id) {
+        opcionCcl.selected = true;
+      }
+      opcionCcl.innerHTML = e.ambito + ': ' + e.municipio + ' - ' + direccion_corta[0] + ', ' + direccion_corta[1];
+      cclOficinas.append(opcionCcl);
+    });
+    obtenerCclsFechas(cclOficinas);
+  }
+
+
+  function limpiarCclsOficinascl(cclOficinas) {
+    while (cclOficinas.options.length > 0) {
+      cclOficinas.remove(0);
+    }
+  }
+
+  function obtenerFormulario() {
+    let _form_cita = document.getElementById('form_cita');
+    document.getElementById("_cclNombreValidacion").innerHTML = _form_cita._cclNombre.value.toUpperCase();
+    document.getElementById("_cclApellidosValidacion").innerHTML = _form_cita._cclApellidos.value.toUpperCase();
+    document.getElementById("_cclFechaValidacion").innerHTML = _form_cita._cclFecha.value;
+    document.getElementById("_cclEstadosValidacion").innerHTML = _form_cita._cclEstados.value.toUpperCase();
+    document.getElementById("_cclOficinasValidacion").innerHTML = _form_cita._cclOficinas.selectedOptions[0].text.toUpperCase();
+
+    document.getElementById("_cclCorreoValidacion").innerHTML = _form_cita._cclCorreo.value.toUpperCase();
+    document.getElementById("_cclCelularValidacion").innerHTML = _form_cita._cclCelular.value ? _form_cita._cclCelular.value.toUpperCase() : '-';
+    document.getElementById("_cclObservacionesValidacion").innerHTML = _form_cita._cclObservaciones.value ? _form_cita._cclObservaciones.value.toUpperCase() : '-';
+  }
+
+  function obtenerFormulario(){
+      let _form_cita = document.getElementById('form_cita');
+      document.getElementById("_cclNombreValidacion").innerHTML = _form_cita._cclNombre.value.toUpperCase();
+      document.getElementById("_cclApellidosValidacion").innerHTML = _form_cita._cclApellidos.value.toUpperCase();
+      document.getElementById("_cclFechaValidacion").innerHTML = _form_cita._cclFecha.value;      
+      document.getElementById("_cclEstadosValidacion").innerHTML = _form_cita._cclEstados.value.toUpperCase();
+      document.getElementById("_cclOficinasValidacion").innerHTML = _form_cita._cclOficinas.selectedOptions[0].text.toUpperCase();
+      
+      document.getElementById("_cclCorreoValidacion").innerHTML = _form_cita._cclCorreo.value.toUpperCase();
+      document.getElementById("_cclCelularValidacion").innerHTML = _form_cita._cclCelular.value ? _form_cita._cclCelular.value.toUpperCase() : '-';
+      document.getElementById("_cclObservacionesValidacion").innerHTML = _form_cita._cclObservaciones.value ? _form_cita._cclObservaciones.value.toUpperCase() : '-';      
+    }
+
+    
+    function habilitarAgenda(){
+
+      $(document).ready(function() {
+        $("form").keypress(function(e) {
+            if (e.which == 13) {
+                return false;
+            }
+        });
+
+      });
+
+      // Variables control
+      valBoton = 0;
+      valEstado = document.getElementById('_cclEstados').value;
+      valOficina =  document.getElementById('_cclOficinas').selectedOptions[0].text;
+      valFecha = document.getElementById('_cclFecha').value;
+      valHorario = document.getElementById('_cclHora_').value;      
+      valCorreo = document.getElementById('_cclCorreo').value;
+      /* valCelular = document.getElementById('_cclCelular').value; */
+      valNombre = document.getElementById('_cclNombre').value;
+      valApellidos = document.getElementById('_cclApellidos').value;
+      //validaObservaciones = document.getElementById('_cclObservaciones').value;
+      validaAviso = document.getElementById('_cclAviso').checked;
+      const regexEmail = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/);
+      const regexCel = new RegExp(/^[0-9]{10}$/);      
+      habilitaBoton = document.getElementById('btnAgendar');
+      valCaptcha = document.getElementById('_visibleCaptcha').textContent;
+      valRecaptha = document.getElementById('_recaptcha').value;
+      
+      if(valEstado == '' || valEstado == 'Selecciona una entidad'){
+        valBoton++
+      }
+
+      if(valFecha == ''){
+        valBoton++
+      }
+
+      if(valHorario == ''){
+        valBoton++
+      }
+
+      if(valCorreo == '' || !regexEmail.test(valCorreo)){
+        valBoton++
+      }
+
+      // if(valCelular == '' || valCelular.length < 10 || !regexCel.test(valCelular)){
+      //   valBoton++
+      // }
+
+      if(valNombre == '' || valNombre.length < 4){
+        valBoton++
+      }
+
+      if(valApellidos == '' || valApellidos.length < 4){
+        valBoton++
+      }
+
+      // if(validaObservaciones == '' || validaObservaciones.length < 4){
+      //   valBoton++
+      // }
+
+      if(!validaAviso){
+        valBoton++
+      }
+
+      if(valCaptcha != valRecaptha){
+        valBoton++;
+        if(valRecaptha.length > 5){
+          document.getElementById('_cclCaptachaRequerido').innerHTML = 'incorrecto';
+        }
+      }else{
+        document.getElementById('_cclCaptachaRequerido').innerHTML = '';
+      }
+
+      if(valBoton == 0){
+        habilitaBoton.disabled = false;
+        habilitaBoton.innerHTML = 'Agendar'
+      }else{
+        habilitaBoton.disabled = true;
+        habilitaBoton.innerHTML = 'Completa el formulario'        
+      }
+    }
+
+    function obtenerHoraCitaPcs(hora){
+      horaCita = hora;
+      document.getElementById("_cclHoraValidacion").innerHTML = horaCita.substr(0,5);
+      $('#_cclHora_').val(horaCita);
+      habilitarAgenda();
+    }  
+    
+    function obtenerCclsFechas(e) {
+    $('.texto_redireccion').hide();
+    if (e.value) {
+      let selectedOption = e.options[e.selectedIndex];
+      let ligaLocal = selectedOption.getAttribute('data-liga_local');
+      let centro = selectedOption.text;
+
+      if (ligaLocal && ligaLocal.trim() !== "") {
+        mostrarModalConLiga(ligaLocal, centro);
+      } else {
+        mensajeProcesando();
+        fetch(`../../../ccls/${e.value}`)
+          .then(res => res.json())
+          .then(function (colorDisponible) {
+            cerrarMensajeProcesando();
+            colorearFechas(colorDisponible);
+          });
+      }
+    }
+  }
+
+
+  function mostrarModalConLiga(liga_local, centro) {
+    let liga = document.getElementById('liga_redireccion');
+    let nombre_centro = document.getElementById('nombre_centro');
+    nombre_centro.innerHTML = centro;
+    document.getElementById('_cclHoraButton').innerHTML = "<div class='alert alert-info' role='alert'>Centro no disponible</div>";
+    document.getElementById('calendar').innerHTML = "<div class='alert alert-info text-center' role='alert'>Centro no disponible</div>";
+
+    if (liga_local.includes('malito')) {
+      $('#redireccion_correo').show();
+      let correo = liga_local.replace('mailto:', '');
+      liga.innerHTML = `<a href="${liga_local}">${correo}</a>`;
+    } else if (liga_local.includes('tel')) {
+      $('#redireccion_telefono').show();
+      let telefono = liga_local.replace('tel:', '');
+      liga.innerHTML = `<a href="${liga_local}">${telefono}</a>`;
+    } else {
+      $('#redireccion_pagina').show();
+      liga.innerHTML = `<a href="${liga_local}">Ir a la página</a>`;
+    }
+
+    $('#redireccionCita').modal('show');
+  }
+
+    function colorearFechas(colorDisponible){
+
+      document.getElementById('_cclHoraButton').innerHTML = "<div class='alert alert-info' role='alert'>Seleccione fecha</div>";
+      let date = new Date(); 
+      let dateMes = new Date(); 
+      let datePlusMes = new Date(dateMes.setMonth(dateMes.getMonth() + colorDisponible[1]));
+      let d = date.getDate();
+      let m = date.getMonth();
+      let y = date.getFullYear();
+      let diaSelecionado;
+      let calendarEl = document.getElementById('calendar');
+      let fechasDiponiblesColorEvents = [];
+      let titulo = '';
+      
+      colorDisponible[0].forEach(e => {
+        if(e.status_dia && e.status_fecha == 1){
+          
+          if(e.porDisponibilidad == 0){
+            titulo = 'Sin disponibilidad';
+            coldColor = '#C3C3C3';
+          }else if(e.porDisponibilidad > 0 && e.porDisponibilidad <= 33){
+            titulo = 'Baja disponibilidad';
+            coldColor = '#fe1414';
+          }else if(e.porDisponibilidad > 33 && e.porDisponibilidad <= 66){
+            titulo = 'Media disponibilidad';
+            coldColor = '#FEFF5F  ';
+          }else{
+            titulo = 'Alta disponibilidad';
+            coldColor = 'green';
+          }
+        
+        }else{
+          titulo = 'Sin disponibilidad';
+          coldColor = '#C3C3C3';
+        }
+
+        event = {
+          start: e.fecha, 
+          overlap: true,
+          display: 'background',
+          color: coldColor
+        };
+
+        fechasDiponiblesColorEvents.push(event);
+
+      });
+
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+      
+      validRange: {
+        start: date,
+        end: datePlusMes
+      },
+
+        events: fechasDiponiblesColorEvents,
+        
+        initialView: 'dayGridMonth',
+        
+        selectable: true,        
+        
+        locale: 'es',
+        
+        hiddenDays: [ 6, 0 ],
+        
+        buttonText: {
+          today:    'hoy',          
+        },
+        unselectAuto: true,
+        
+        showNonCurrentDates: false,
+        
+        fixedWeekCount: false,
+        
+        dateClick:function(info) {
+
+          let fechaActual = obtenerFechaActual();
+
+          if(info.dateStr > fechaActual){
+            
+            diaSelecionado = info.dateStr;
+            
+            $('#_cclFecha').val(diaSelecionado);
+
+            habilitarAgenda();
+
+            verificarDiponibilidad();
+
+            var days = document.querySelectorAll(".selectedDate");
+            days.forEach(function(day) {
+              day.classList.remove("selectedDate");
+            });
+            info.dayEl.classList.add("selectedDate");
+
+          }else{
+
+            habilitarAgenda();
+
+            limpiarCclsHorarios('Limpiar horas'); 
+            
+            var days = document.querySelectorAll(".selectedDate");
+            days.forEach(function(day) {
+              day.classList.remove("selectedDate");
+            });
+
+          }          
+          
+        },
+
+      });      
+      calendar.render();
+    }
+
+    function verificarDiponibilidad(){
+      mensajeProcesando();
+      let validarDisponibilidadOficina = document.getElementById('_cclOficinas').value;
+      let validarDisponibilidadFecha = document.getElementById('_cclFecha').value;
+
+      fetch(`../../../ccls/${validarDisponibilidadOficina}/${validarDisponibilidadFecha}`)
+      .then(res => {                
+          return res.json();
+      })
+      .then(function (horarios){
+        cerrarMensajeProcesando();      
+        listarHorasDisponibles(horarios[0], horarios[1], horarios[2]);
+      })
+    }
+
+
+    function listarHorasDisponibles(horarios, conciliadores, idConfig){
+
+      let horasCitaConciliadorSiDisponibles = [];
+      let idAsignado;
+
+      horarios.forEach(e => {        
+        conciliadores.forEach(i => {
+          index = conciliadores.findIndex((c) => {          
+            return c.id == e.id && c.horario == e.cita_hora;
+          });          
+          if(index != -1){
+            conciliadores.splice(index,1);
+          }            
+        })
+      });      
+
+      conciliadores.forEach(c => {        
+        indice = horasCitaConciliadorSiDisponibles.indexOf(c.horario);
+        if(indice == -1){
+          horasCitaConciliadorSiDisponibles.push(c.horario);
+        }
+      });      
+
+      let horarioDefinidos = horasCitaConciliadorSiDisponibles.sort();
+      let horasDisponibles = document.getElementById('_cclHoraButton');
+      let conciliadorDisponible = document.getElementById('_cclConciliador');
+      document.getElementById('_idConfig').value = idConfig;
+
+      limpiarCclsHorarios(horasDisponibles)
+
+      if (horarioDefinidos.length > 0){
+        horarioDefinidos.forEach((horario, index) => {
+
+          let radioCcl = document.createElement('input');
+          radioCcl.setAttribute('type', 'radio');
+          radioCcl.setAttribute('name', 'cclHora');
+          radioCcl.setAttribute('autocomplete', 'off');
+          radioCcl.classList.add('btn-check');
+          radioCcl.setAttribute('id', 'btn' + index)
+          let labelCcl = document.createElement('label');
+          labelCcl.classList.add('btn', 'btn-outline-secondary', 'm-1', 'col-lg-3','col-md-12', 'col-sm-12');
+          labelCcl.setAttribute('for', 'btn' + index);
+
+          radioCcl.value = horario;
+          labelCcl.innerText = horario.substring(0, 5);
+          horasDisponibles.append(radioCcl);
+          horasDisponibles.append(labelCcl);        
+
+          
+          document.getElementById('btn' + index).addEventListener('click', function(e){
+
+            iTimer++;
+            if(iTimer == 1){
+              
+              citaTimer();
+
+            }
+
+            concicliadoresDisponibles = []; 
+            horaSelecionada = e.target.value;                                    
+            obtenerHoraCitaPcs(horaSelecionada);          
+                      
+            indice = conciliadores.findIndex((c) => {
+              
+              
+              if(c.horario == horaSelecionada){
+                concicliadoresDisponibles.push(c);
+              }
+            });
+
+            totalConciliadores = concicliadoresDisponibles.length; 
+            
+            if(totalConciliadores > 0){
+              conciliadorSorteado = Math.round(Math.random() * totalConciliadores); 
+              if(conciliadorSorteado != 0){
+                conciliadorSorteado = conciliadorSorteado-1;
+              }
+              idAsignado = concicliadoresDisponibles[conciliadorSorteado].id; 
+              
+              let inputConciliador = document.createElement('input');
+              inputConciliador.setAttribute('type', 'hidden');
+              inputConciliador.setAttribute('name', 'cclConciliador');
+              inputConciliador.setAttribute('id', '_cclConciliadorCita');
+
+              
+              inputConciliador.value = idAsignado;
+              conciliadorDisponible.append(inputConciliador);  
+            }
+            
+          });
+
+          
+          horarios.forEach(e => {
+            horaNoDisponible = e.cita_hora.substr(0, 5);
+            
+            if(horario == horaNoDisponible){
+              document.getElementById('btn' + index).disabled = true;            
+            }                    
+          });        
+          });
+      } else { 
+        document.getElementById('_cclHoraButton').innerHTML = "<div class='alert alert-info' role='alert'>Horarios no disponibles, seleccione otro centro de conciliación o fecha, por favor</div>";
+      }
+
+  }
+
+  function limpiarCclsHorarios(horasDisponibles){
+
+    if(horasDisponibles == 'Limpiar horas'){
+      
+      document.getElementById('_cclHoraButton').innerHTML = "<div class='alert alert-info' role='alert'>No es posible agendar el día de hoy, seleccione otra fecha.</div>";
+      
+      obtenerHoraCitaPcs('');
+      
+    }else if(horasDisponibles != ''){
+      
+      document.getElementById('_cclHoraButton').innerHTML = '';
+      
+      obtenerHoraCitaPcs('');
+      
+    }
+  }
+
+  /*Función que establece el tiempo  permitido para agendar, de lo contrario reiniciamos la página*/
+  function citaTimer() {
+    let _cclTimerConfirmar = document.getElementById('_cclTimerConfirmar');
+    let habilitaBoton = document.getElementById('btnAgendar');
+
+    var minutos = 5;
+    var segundos = 0;
+
+    var timer = setInterval(function () {
+
+      if (segundos > 9) {
+        segundoTexto = segundos;
+      } else {
+        segundoTexto = '0' + segundos;
+      }
+
+      _cclTimer.innerHTML = '0' + minutos + ':' + segundoTexto;
+      _cclTimerConfirmar.innerHTML = '0' + minutos + ':' + segundoTexto;
+
+      if (minutos == 0 && segundos == 0) {
+        clearInterval(timer);
+        $("#form_cita")[0].reset();
+        habilitaBoton.disabled = true;
+        habilitaBoton.innerHTML = 'Completa el formulario'
+        Swal.fire({
+          title: "Tiempo agotado",
+          iconColor: alertasColor,
+          icon: "info",
+          confirmButtonColor: alertasColor,
+          confirmButtonText: "Aceptar",
+          showConfirmButton: false,
+          html: `<p class='text-black'>Vuelve a completar el formulario, por favor.</p><br><a class="fs-3 dorada" href=""'>Aceptar</a>`,
+          allowEnterKey: false,
+          allowOutsideClick: false,
+          showClass: {
+            popup: 'animate__animated animate__fadeInDown'
+          },
+          hideClass: {
+            popup: 'animate__animated animate__fadeOutUp'
+          }
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = "/";
+          }
+        });
+      }
+
+      segundos--;
+
+      if (segundos < 0) {
+        minutos--;
+        segundos = 59;
+      }
+
+    }, 1000);
+  }
+
+  function generarCaptcha(){
+
+    // Obtenemos el label donde se moestrará el captcha
+    let _visibleCaptcha = document.getElementById('_visibleCaptcha');
+
+    // Limpiamos el captcha capturado
+    let _repcaptcha = document.getElementById('_recaptcha');
+    _repcaptcha.value = '';
+
+    let _cclCaptachaRequerido = document.getElementById('_cclCaptachaRequerido');
+    _cclCaptachaRequerido = '';
+
+    // Conjunto de letras
+    let caracteresCaptcha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz#$%/*-+_-¿?!¡()=.,:"; 
+    let caracterIndice = 0;
+    let acumulador = '';
+
+    // Generamos el captcha
+    for(let i = 0; i<6; i++){
+      caracterIndice = Math.floor(Math.random()  * 80);
+      acumulador = acumulador + caracteresCaptcha[caracterIndice];
+    } 
+
+    // Pintamos el captcha generado
+    _visibleCaptcha.innerText = acumulador;
+
+    }
+
+    function obtenerFechaActual() {
+    const fecha = new Date();
+    const anio = fecha.getFullYear();
+    const mes = String(fecha.getMonth() + 1).padStart(2, '0'); // getMonth() devuelve un valor de 0 a 11
+    const dia = String(fecha.getDate()).padStart(2, '0'); // getDate() devuelve el día del mes
+
+    return `${anio}-${mes}-${dia}`;
+    }
+  </script>
+
+<style>
+  #calendar {
+    font-size: 14px;
+    max-width: 1100px;
+    margin: 40px auto;
+  }
+
+  .horas-disponibles {
+    margin: 40px auto;
+  }
+
+  .fc-highlight {
+    background: #fff !important;
+    border: 2px solid green;
+    border-radius: 5%;
+  }
+
+  .btn_radio_selec {
+    font-size: 16px;
+    width: 150px;
+    margin: 5px;
+    padding: 10px;
+    border-radius: 5px;
+    position: relative;
+    display: inline;
+  }
+
+  .btn_radio_selec_list {
+    display: none;
+  }
+
+  .fc-day-today {
+    background: #afc8ea !important;
+    border: none !important;
+  }
+
+  .selectedDate {
+    /* background-color: #E9DDD1 !important; */
+    background-color: transparent !important;
+  }
+
+  .captcha-class {
+
+    border: 0px;
+    color: white;
+    letter-spacing: 15px;
+    font-weight: bolder;
+    text-align: center;
+    font-size: x-large;
+    font-optical-sizing: 60px;
+
+  }
+
+  .iconSize {
+
+    width: 15px;
+    height: 15px;
+
+  }
+
+  @media (max-width:1280) {
+    .btn_radio_selec {
+      font-size: 14px;
+      width: 125px;
+      margin: 5px;
+      padding: 5px;
+      border-radius: 5px;
+      position: relative;
+      display: block;
+    }
+
+  }
+
+  @media (max-width:991px) {
+    .btn_radio_selec {
+      font-size: 12px;
+      width: 75px;
+      margin: 3px;
+      padding: 3px;
+      border-radius: 5px;
+      position: relative;
+    }
+
+    .captcha-class {
+
+      border: 0px;
+      color: white;
+      letter-spacing: 15px;
+      font-weight: bolder;
+      text-align: center;
+      font-size: large;
+      font-optical-sizing: 60px;
+
+    }
+
+    .iconSize {
+
+      width: 20px;
+      height: 20px;
+
+    }
+
+  }
+
+  @media (max-width:854px) {
+    .btn_radio_selec_list {
+      display: block
+    }
+
+    .btn_radio_selec {
+      display: none;
+    }
+
+    #calendar {
+      width: 100%;
+      font-size: 12px;
+      margin: 1px;
+    }
+
+  }
+
+  @media (max-width:768px) {
+
+    .captcha-class {
+
+      border: 0px;
+      color: white;
+      letter-spacing: 5px;
+      font-weight: bolder;
+      text-align: center;
+      font-size: small;
+      font-optical-sizing: 60px;
+
+    }
+
+  }
+
+  @media (max-width:575px) {
+
+    .captcha-class {
+
+      border: 0px;
+      color: white;
+      letter-spacing: 15px;
+      font-weight: bolder;
+      text-align: center;
+      font-size: medium;
+      font-optical-sizing: 60px;
+
+    }
+
+    .iconSize {
+
+      width: 20px;
+      height: 20px;
+
+    }
+
+  }
+</style>

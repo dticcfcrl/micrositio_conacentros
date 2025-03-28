@@ -1,0 +1,121 @@
+title: 'Localiza Centro Información'
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+              validate:
+                - required
+          -
+            handle: sections
+            field:
+              collapse: false
+              previews: true
+              fullscreen: true
+              sets:
+                texto:
+                  display: Texto
+                  instructions: null
+                  icon: text-formatting-image-bottom
+                  sets:
+                    paragraph:
+                      display: Párrafo
+                      instructions: null
+                      icon: form-text-field
+                      fields:
+                        -
+                          handle: text_section
+                          field:
+                            buttons:
+                              - h2
+                              - h3
+                              - bold
+                              - italic
+                              - unorderedlist
+                              - orderedlist
+                              - removeformat
+                              - quote
+                              - anchor
+                              - image
+                              - table
+                              - underline
+                              - alignleft
+                              - aligncenter
+                              - alignright
+                              - alignjustify
+                            smart_typography: false
+                            save_html: true
+                            inline: false
+                            toolbar_mode: fixed
+                            reading_time: false
+                            word_count: false
+                            fullscreen: true
+                            allow_source: true
+                            enable_input_rules: true
+                            enable_paste_rules: true
+                            remove_empty_nodes: false
+                            antlers: false
+                            link_noopener: false
+                            link_noreferrer: false
+                            target_blank: false
+                            always_show_set_button: false
+                            collapse: false
+                            previews: true
+                            type: bard
+                            display: Texto
+                            listable: hidden
+                            instructions_position: above
+                            visibility: visible
+                            replicator_preview: true
+                            hide_display: false
+              type: replicator
+              display: Secciones
+              instructions: 'Texto que aparecerá en cada pantalla informativa. El orden de la información será el mismo que verá el usuario.'
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+  sidebar:
+    display: Sidebar
+    sections:
+      -
+        fields:
+          -
+            handle: slug
+            field:
+              type: slug
+              localizable: true
+              validate: 'max:200'
+          -
+            handle: template
+            field:
+              hide_partials: true
+              blueprint: false
+              type: template
+              display: Template
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+              folder: complex_pages
+          -
+            handle: next_page
+            field:
+              collections:
+                - complex_pages
+              type: link
+              display: 'Siguiente página'
+              instructions: 'Página siguiente después de mostrar el formulario introductorio.'
+              listable: hidden
+              instructions_position: below
+              visibility: visible
+              replicator_preview: true
+              hide_display: false

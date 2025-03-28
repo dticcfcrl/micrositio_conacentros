@@ -1,0 +1,376 @@
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        fields:
+          -
+            handle: logo_description
+            field:
+              fields:
+                -
+                  handle: image_logo
+                  field:
+                    max_files: 1
+                    min_files: 1
+                    mode: list
+                    container: assets
+                    restrict: false
+                    allow_uploads: true
+                    show_filename: true
+                    show_set_alt: true
+                    type: assets
+                    display: Imagen
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                -
+                  handle: text_message
+                  field:
+                    buttons:
+                      - h2
+                      - h3
+                      - bold
+                      - italic
+                      - unorderedlist
+                      - orderedlist
+                      - removeformat
+                      - quote
+                      - anchor
+                      - image
+                      - table
+                    smart_typography: false
+                    save_html: false
+                    inline: false
+                    toolbar_mode: fixed
+                    reading_time: false
+                    word_count: false
+                    fullscreen: true
+                    allow_source: true
+                    enable_input_rules: true
+                    enable_paste_rules: true
+                    remove_empty_nodes: false
+                    antlers: false
+                    link_noopener: false
+                    link_noreferrer: false
+                    target_blank: false
+                    always_show_set_button: false
+                    collapse: false
+                    previews: true
+                    type: bard
+                    display: Texto
+                    instructions: 'Mensaje que se mostrará debajo del logo.'
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+              fullscreen: true
+              type: group
+              display: 'Logo y mensaje'
+              instructions: 'Imagen de logo en el footer y el mensaje debajo del logo'
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: footer_menu
+            field:
+              fields:
+                -
+                  handle: title_menu_footer
+                  field:
+                    input_type: text
+                    antlers: false
+                    type: text
+                    display: Título
+                    instructions: 'Título para los enlaces de las páginas internas.'
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                -
+                  handle: footer_menu_content
+                  field:
+                    collapse: false
+                    previews: true
+                    fullscreen: true
+                    sets:
+                      elements:
+                        display: Contenido
+                        instructions: null
+                        icon: arrow-roadmap-path-flow
+                        sets:
+                          link:
+                            display: Enlace
+                            instructions: 'Título y enlace a redireccionar.'
+                            icon: link
+                            fields:
+                              -
+                                handle: title_link
+                                field:
+                                  input_type: text
+                                  antlers: false
+                                  type: text
+                                  display: Título
+                                  listable: hidden
+                                  instructions_position: above
+                                  visibility: visible
+                                  replicator_preview: true
+                                  hide_display: false
+                              -
+                                handle: link_item
+                                field:
+                                  type: link
+                                  display: 'Elemento para enlace'
+                                  listable: hidden
+                                  instructions_position: below
+                                  visibility: visible
+                                  replicator_preview: true
+                                  hide_display: false
+                    type: replicator
+                    display: Enlaces
+                    instructions: 'Enlaces que aparecerán en el menú del footer.'
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+              fullscreen: true
+              type: group
+              display: 'Menú en footer'
+              instructions: 'Enlaces que se mostrarán en el menú del footer.'
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: menu_contact
+            field:
+              fields:
+                -
+                  handle: title_contact
+                  field:
+                    input_type: text
+                    antlers: false
+                    type: text
+                    display: Título
+                    instructions: 'Título para el menú para la sección de contacto.'
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                -
+                  handle: text_contact
+                  field:
+                    buttons:
+                      - bold
+                      - italic
+                      - unorderedlist
+                      - orderedlist
+                      - removeformat
+                      - quote
+                      - anchor
+                      - image
+                      - table
+                      - underline
+                      - small
+                      - superscript
+                      - subscript
+                      - horizontalrule
+                      - alignleft
+                      - aligncenter
+                      - alignright
+                      - alignjustify
+                    smart_typography: false
+                    save_html: true
+                    inline: false
+                    toolbar_mode: fixed
+                    reading_time: false
+                    word_count: false
+                    fullscreen: true
+                    allow_source: true
+                    enable_input_rules: true
+                    enable_paste_rules: true
+                    remove_empty_nodes: false
+                    antlers: false
+                    link_noopener: false
+                    link_noreferrer: false
+                    target_blank: false
+                    always_show_set_button: false
+                    collapse: false
+                    previews: true
+                    type: bard
+                    display: 'Texto de introducción'
+                    instructions: 'Texto para describir las instrucciones sobre las opciones de contacto.'
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                -
+                  handle: email
+                  field:
+                    input_type: email
+                    antlers: false
+                    type: text
+                    display: 'Correo electrónico de contacto'
+                    instructions: 'Correo electrónico para que las personas puedan contactar para recibir ayuda.'
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                -
+                  handle: telephone_number
+                  field:
+                    input_type: tel
+                    antlers: false
+                    type: text
+                    display: 'Teléfono de contacto'
+                    instructions: 'Teléfono de contacto para recibir apoyo.'
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+              fullscreen: true
+              type: group
+              display: 'Menú en contacto'
+              instructions: 'Información sobre la información del contacto.'
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: menu_social_media
+            field:
+              fields:
+                -
+                  handle: title_social_media
+                  field:
+                    input_type: text
+                    antlers: false
+                    type: text
+                    display: Título
+                    instructions: 'Título para el menú de las redes sociales.'
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                -
+                  handle: footer_menu_content
+                  field:
+                    collapse: false
+                    previews: true
+                    fullscreen: true
+                    sets:
+                      elements:
+                        display: Contenido
+                        instructions: null
+                        icon: arrow-roadmap-path-flow
+                        sets:
+                          link:
+                            display: Enlace
+                            instructions: 'Texto y página a redireccionar.'
+                            icon: link
+                            fields:
+                              -
+                                handle: title_item
+                                field:
+                                  input_type: text
+                                  antlers: false
+                                  type: text
+                                  display: Título
+                                  listable: hidden
+                                  instructions_position: above
+                                  visibility: visible
+                                  replicator_preview: true
+                                  hide_display: false
+                              -
+                                handle: link_item
+                                field:
+                                  type: link
+                                  display: 'Elemento para enlace'
+                                  listable: hidden
+                                  instructions_position: below
+                                  visibility: visible
+                                  replicator_preview: true
+                                  hide_display: false
+                    type: replicator
+                    display: Enlaces
+                    instructions: 'Enlaces que aparecerán en el menú del footer.'
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+              fullscreen: true
+              type: group
+              display: 'Menú en redes sociales'
+              instructions: 'Enlaces que se mostrarán en el menú del footer para las redes sociales.'
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: menu_mail_list
+            field:
+              fields:
+                -
+                  handle: title_mail_list
+                  field:
+                    input_type: text
+                    antlers: false
+                    type: text
+                    display: Título
+                    instructions: 'Título para el menú para la lista de suscripción.'
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                -
+                  handle: placeholder
+                  field:
+                    input_type: email
+                    antlers: false
+                    type: text
+                    display: 'Texto del texto provisional'
+                    instructions: 'Texto provisional que aparece en la entrada cuando se solicita la información de contacto o correo.'
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                -
+                  handle: text_button
+                  field:
+                    input_type: tel
+                    antlers: false
+                    type: text
+                    display: 'Texto botón'
+                    instructions: 'Texto que aparece en el botón de enviar.'
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+              fullscreen: true
+              type: group
+              display: 'Menú de lista de suscripción'
+              instructions: 'Lista de suscripción para los boletines o correos.'
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false

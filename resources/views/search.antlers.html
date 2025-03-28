@@ -1,0 +1,25 @@
+<div class="vh-75">
+    <div class="row container">
+        {{ search:results index="pages" }}    
+            {{ if no_results }}
+                <div class="m-4">
+                    <h4 class="dorada">No se encontraron resultados para la búsqueda: "{{ get:q }}"</h4>
+                </div>
+            {{ else }}
+                {{ if first }}
+                    <div class="m-4">
+                        <h4 class="dorada">Resultados de búsqueda para "{{ get:q }}":</h4>
+                    </div>
+                    <hr>
+                {{ /if }}
+                <div class="col-md-4 mb-4">
+                    <div class="card text-center">
+                        <div class="card-body height-150 d-flex align-items-center justify-content-center">
+                            <h5 class="card-title"><a href="{{ url }}" class="text-secondary">{{ title }}</a></h5>
+                        </div>
+                    </div>
+                </div>
+            {{ /if }}
+            {{ /search:results }}
+    </div>
+</div>

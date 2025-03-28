@@ -1,0 +1,82 @@
+<section class="der-lab-trabajadores  my-3 col col-md-10 col-lg-10 col-12 ">
+
+    <div class="container-act">
+        
+        <div class="row justify-content-md-center w-100 h-100 secAct active" id="div_actividades">
+            <nav>
+                <a href="{{ previous_page:url }}" class="btn btn-primary btn-primary-ccls rounded-pill">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-chevron-left" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
+                    </svg>
+                    Regresar
+                </a>
+            </nav>
+            <div class="col-12 h-100" id="actividades">
+                <div class=" px-3 py-3 mt-2 shadow ">
+                    <h4 class="h4  my-3">
+                        1) {{ title_activities_instructions }}
+                    </h4>
+                    <!-- <h3 class="text-center">Información</h3>-->
+                    <div class="bd-example galeriaActLab">
+                        <div class="row  row-cols-1 row-cols-md-4 g-lg-3 g-md-3 g-1">
+                            {{ group_buttons | sort('title_button', 'asc') }}
+                            <button
+                                class="pill-act rounded-pill text-bg-secondary dorada selecc m-lg-3 m-md-3 p-lg-3 p-md-3 m-1 p-2"
+                                onclick='objenterContenido(this);' data-title="{{ title_button }}" data-federal="{{ federal_description }}" data-local="{{ local_description }}">
+                                {{ title_button }}
+                            </button>
+                            {{ /group_buttons }}
+                            <br>
+                            <br>
+                            <a class="pill-act rounded-pill text-bg-secondary  selecc  pill-end m-lg-3 m-md-3 p-lg-3 p-md-3 m-1 p-2"
+                                href="{{ next_page:url }}?ambito=local">
+                                {{ no_option }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-md-center w-100 h-100 secAct" id="div_detalles">
+            <nav>
+                <button class="btn btn-primary btn-primary-ccls rounded-pill previous" id="previous"
+                    onclick="mostrarActividades()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-chevron-left" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
+                    </svg>
+                    Regresar
+                </button>
+            </nav>
+            <div class="col-12 h-100" id="detalles">
+                <div class=" px-3 py-3 mt-2 shadow ">
+                    <h4 class="h4  my-3">
+                        2) {{ title_type_instructions }}
+                    </h4>
+                    <!-- <h3 class="text-center">Información</h3>-->
+                    <div class="bd-example galeriaActLab">
+                        <div class="row  row-cols-1 ">
+                            <h5 class="dorada">
+                                Actividad económica: <span id="nomAct1"> </span>
+                            </h5>
+                            <ul>
+                                <li>
+                                    <b> Competencia federal:</b> <a class="dorada rounded selecc" href="{{ next_page:url }}?ambito=federal" id="descFed1">
+                                        Seleccionar Federal</a>
+                                </li>
+                                <li>
+                                    <b> Competencia local:</b> <a class="dorada rounded selecc" href="{{ next_page:url }}?ambito=local" id="descLoc1">
+                                        Seleccionar Local </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>

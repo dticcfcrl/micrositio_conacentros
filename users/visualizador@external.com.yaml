@@ -1,0 +1,8 @@
+name: 'Visualizador externo'
+roles:
+  - viewer
+id: bdb244df-a019-4173-8aef-80c2e8d88a00
+password_hash: $2y$10$Ctaa0NlEGA07BpB1O2xRc.PDRZidKZwQ4HxzoK.wFispvDaWDS7u2
+preferences:
+  locale: es
+  start_page: collections

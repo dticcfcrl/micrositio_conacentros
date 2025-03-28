@@ -1,0 +1,32 @@
+
+    <!--  biblioteca para openstreetmap  -->
+    <script src="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.umd.js"></script>
+    <script src="https://unpkg.com/intro.js/minified/intro.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        function mostrarActividades(e){
+            var activities = document.getElementById('div_actividades');
+            var details = document.getElementById('div_detalles');
+            activities.classList.add("active");
+            details.classList.remove("active");
+        }
+       
+        function objenterContenido(element) {
+            console.log(element.dataset);
+            var title = element.dataset.title;
+            var descripcion_federal = element.dataset.federal;
+            var descripcion_local = element.dataset.local;
+
+            document.querySelector('#nomAct1').innerText =  title;
+            document.querySelector('#descFed1').innerText =  descripcion_federal;
+            document.querySelector('#descLoc1').innerText =  descripcion_local;
+
+            var activities = document.getElementById('div_actividades');
+            var details = document.getElementById('div_detalles');
+            activities.classList.remove("active");
+            details.classList.add("active");
+        }
+
+    
+    </script>

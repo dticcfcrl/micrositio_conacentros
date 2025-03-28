@@ -1,0 +1,86 @@
+<script>
+    /*mensajes de espera*/
+    let alertasColor = '#C04F15'; //COLOR QUE SE APLICA A BOTONES DE CONFIRMACIÓN E ICONOS.
+    let botonColor = '#C04F15'; //COLOR QUE SE APLICA A BOTONES DE CONFIRMACIÓN E ICONOS.
+    function mensajeProcesando(){
+        Swal.fire({
+            title: "Procesando",
+            text: "Espere, por favor",
+            icon: "info",
+            iconColor: alertasColor,
+            showClass: {
+            popup: 'animate__animated animate__fadeInDown'
+            }
+        });
+        Swal.showLoading();
+    }
+
+    /* Scrip para obtener mostrar mensaje de cita agendada */
+    function cancelarCita(){
+        let folioCancelar = document.getElementById("_cclsFolio");               
+
+        Swal.fire({
+            title: "¿Está seguro?",
+            text: "Se cancelará su cita",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonColor: botonColor,
+            cancelButtonColor: "#6C757D",
+            confirmButtonText: "Sí",
+            cancelButtonText: "No",
+            reverseButtons: true,
+            iconColor: alertasColor,
+            showClass: {
+            popup: 'animate__animated animate__fadeInDown'
+            },
+            hideClass: {
+            popup: 'animate__animated animate__fadeOutUp'
+            },
+            customClass: {
+                confirmButton: "btn-primary-ccls",
+                cancelButton: "btn-info-ccls"
+            },
+        }).then((result) => {
+            if (result.isConfirmed) {
+                mensajeProcesando();
+                citaCancelada(folioCancelar.innerText, alertasColor);                
+            }
+        });
+    }
+
+    /*función de cita ya cancelada*/
+    function citaCancelada(folio, alertasColor){
+        let botonCancelarCita = document.getElementById("_btnCancelarCita");
+        let botonCitaCancelada = document.getElementById("_btnCitaCancelada");
+        
+        fetch(`../../../ccls/citacancelada/${folio}`).then(res => {
+        if(res.status == 200)
+        {
+            
+            botonCancelarCita.setAttribute('disabled', "true");
+            botonCancelarCita.style.display = 'none'
+            botonCitaCancelada.style.display = 'inline-block'
+
+            Swal.fire({
+                title: "Cita cancelada con éxito",
+                text: "Gracias",
+                icon: "success",
+                confirmButtonColor: botonColor,
+                allowEnterKey: true,
+                allowOutsideClick: true,
+                confirmButtonText: "Aceptar",
+                iconColor: alertasColor,
+            });
+        } else {
+            Swal.fire({
+                title: "Error inesperado",
+                text: "Intente cancelar más tarde",
+                icon: "error",
+                iconColor: alertasColor,
+                confirmButtonText: "Aceptar",
+            });
+        }
+        return;
+        })
+    }
+</script>

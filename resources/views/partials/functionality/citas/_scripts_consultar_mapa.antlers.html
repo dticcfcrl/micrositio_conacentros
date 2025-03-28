@@ -1,0 +1,37 @@
+<script>
+    (function ($) {        
+
+        /*
+        Busqueda usando mapa
+        */
+        let customIcon = {
+
+            iconUrl: "/assets/contenidos/iconos/edificio.png",
+            iconSize:[25,25],
+        }
+        let iconoPin = L.icon(customIcon);
+        let iconOptions = {
+            title:"ccls",
+            draggable:true,
+            icon:iconoPin
+        }
+
+        let searchInput = document.getElementById('search');
+        let resultList = document.getElementById('result-list');
+        let mapContainer = document.getElementById('map-container');
+        let currentMarkers = [];
+        let viajesIdaMarkers; 
+
+        // Agregar los markers de los viajes compartidos de ida
+        /* var map = L.map(mapContainer).setView([23.634501, -102.552784], 5); */
+
+        map = L.map(mapContainer).setView([{{oficina.lat}}, {{oficina.long}}], 20);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);                
+        marker = new L.Marker([{{oficina.lat}}, {{oficina.long}}], {icon:iconoPin}).addTo(map);
+
+        }(jQuery));
+
+   
+</script>

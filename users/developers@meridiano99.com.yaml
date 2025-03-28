@@ -1,0 +1,9 @@
+name: 'Desarrolladores m99'
+roles:
+  - developer
+super: false
+id: 2b662c2d-66b2-44f6-8165-5fa1c183d09d
+password_hash: $2y$10$6iwDFh.a2oG4oYLFzOc5pe6F20IrOgZ..3SpjN6Y5k5/7wzixOuXC
+preferences:
+  locale: es
+  start_page: collections
