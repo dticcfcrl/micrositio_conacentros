@@ -163,8 +163,9 @@ class Calculator extends Controller
                     $alPorcentaje['prima_antiguedad'] = round($salarioTopado * $anios_antiguedad * 12, 2);
                     $total += round($salarioTopado * $anios_antiguedad * 12, 2);
                 } else {
-                    $alPorcentaje['prima_antiguedad'] = round($salarioTopado * $anios_antiguedad * 6, 2);
-                    $total += round($salarioTopado * $anios_antiguedad * 6, 2);
+                    $primaAntiguedadEscalada = $salarioTopado * $anios_antiguedad * 12 * ($porcentaje / 100);
+                    $alPorcentaje['prima_antiguedad'] = round($primaAntiguedadEscalada, 2);
+                    $total += round($primaAntiguedadEscalada, 2);
                 }
         
                 $alPorcentaje['total'] = round($total, 2);
