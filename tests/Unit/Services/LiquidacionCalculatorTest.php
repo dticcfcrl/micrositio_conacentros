@@ -241,4 +241,19 @@ class LiquidacionCalculatorTest extends TestCase
             $this->assertArrayNotHasKey('gratificacion_b', $resultado[$key], "gratificacion_b no debería estar en {$key}");
         }
     }
+
+    public function test_caso_qa_vacaciones_redondea_proporcion_a_4_decimales(): void
+    {
+        $resultado = $this->calculator->calcular([
+            'anios_antiguedad'     => 4.96164383,
+            'propVacaciones'       => 0.96164383,
+            'remuneracionDiaria'   => 1000.0,
+            'salarioMinimo'        => 315.04,
+            'propAguinaldo'        => 0.9205,
+            'anios_antiguedad_int' => 4,
+            'diasVacaciones'       => 20,
+        ]);
+
+        $this->assertSame(19232.00, $resultado['completa']['vacaciones']);
+    }
 }

@@ -6,11 +6,11 @@ class LiquidacionCalculator
 {
     public function calcular(array $inputs): array
     {
-        $anios_antiguedad = $inputs['anios_antiguedad'];
-        $propVacaciones = $inputs['propVacaciones'];
+        $anios_antiguedad = round($inputs['anios_antiguedad'], 4);
+        $propVacaciones = round($inputs['propVacaciones'], 4);
         $remuneracionDiaria = $inputs['remuneracionDiaria'];
         $salarioMinimo = $inputs['salarioMinimo'];
-        $propAguinaldo = $inputs['propAguinaldo'];
+        $propAguinaldo = round($inputs['propAguinaldo'], 4);
         $anios_antiguedad_int = $inputs['anios_antiguedad_int'];
         $diasVacaciones = $inputs['diasVacaciones'];
 
