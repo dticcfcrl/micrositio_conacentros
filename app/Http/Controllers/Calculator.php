@@ -34,7 +34,9 @@ class Calculator extends Controller
                 $fechaSalida = Carbon::parse($request->fecha_salida)->addHours(24);
             }
             
-            $anios_antiguedad = Carbon::parse($request->fecha_ingreso)->floatDiffInYears($fechaSalida);
+            $anios_antiguedad = Carbon::parse($request->fecha_ingreso)
+                ->diffInDays(Carbon::parse($request->fecha_salida))
+                / 365;
             $anioSalida = Carbon::parse($request->fecha_salida)->format('Y');
             $anios_antiguedad_int = intval($anios_antiguedad);
     

@@ -174,4 +174,22 @@ class CalculatorEndpointTest extends TestCase
         $this->assertMatchesRegularExpression('/^\$[\d,]+\.\d{2}$/', $data['al90']['total']);
         $this->assertMatchesRegularExpression('/^\$[\d,]+\.\d{2}$/', $data['completa']['indemnizacion']);
     }
+
+    public function test_post_caso_qa_vacaciones_son_19232_exactos(): void
+    {
+        $response = $this->postJson(self::RUTA, [
+            'remuneracion'    => 1000,
+            'periodicidad_id' => 4,
+            'fecha_ingreso'   => '2020-12-16',
+            'fecha_salida'    => '2025-12-01',
+            'zona'            => 0,
+            'ocupacion_id'    => null,
+        ]);
+
+        $response->assertOk();
+        $data = $response->json();
+
+        $this->assertArrayNotHasKey('error', $data, 'El endpoint no debería devolver error con el caso de QA');
+        $this->assertSame('$19,232.00', $data['completa']['vacaciones']);
+    }
 }
