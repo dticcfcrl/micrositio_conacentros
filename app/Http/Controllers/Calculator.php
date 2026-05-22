@@ -25,15 +25,12 @@ class Calculator extends Controller
         try {
             $diasPeriodicidad =  \DB::table('calculadora_periodicidad')->where('id', $request->periodicidad_id)->value('dias');
             $remuneracionDiaria = floatval($request->remuneracion) / $diasPeriodicidad;
-            $fechaSalida = Carbon::now();
             $zona = $request->zona;
             $zona_search = $zona == 1 ? "frontera norte" : "general";
             $zona_fronteriza = $zona == 1 ? "Sí" : "No";
-            
-            if ($request->fecha_salida != '' && $request->fecha_salida != null) {
-                $fechaSalida = Carbon::parse($request->fecha_salida)->addHours(24);
-            }
-            
+
+            // Antigüedad en años: días/365 fijo. Decisión del PO (ver docs/notes/2026-05-19-ejemplo-calculo-vacaciones-qa.html sección 8).
+            // No usar floatDiffInYears (semántica de bisiestos divergente) ni el ajuste de 24h en fecha_salida.
             $anios_antiguedad = Carbon::parse($request->fecha_ingreso)
                 ->diffInDays(Carbon::parse($request->fecha_salida))
                 / 365;
