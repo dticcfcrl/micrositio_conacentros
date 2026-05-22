@@ -218,99 +218,11 @@ class HomeController extends Controller
         return view('public.calcular-prestaciones-2', compact("peridiocidades", "profesiones", "request"));
     }
 
-    /**
-     * Calculos de las prestaciones
-     */
-
-    public function resultadoCalculoPrestaciones(Request $request)
-    {
-        $result = $this->getLaboralesConceptosPre($request);
-
-        return $result;
-    }
-
     public function moneyFormat($amount)
     {
         return '$' . number_format($amount, 2);
     }
 
-    public function getLaboralesConceptosPre(Request $request) {
-        try {
-            $diasPeriodicidad =  \DB::table('calculadora_periodicidad')->where('id', $request->periodicidad_id)->value('dias');
-            $remuneracionDiaria = floatval($request->remuneracion) / $diasPeriodicidad;
-            $fechaSalida = Carbon::now();
-            $zona = $request->zona;
-            $zona_search = $zona == 1 ? "frontera norte" : "general";
-            $zona_fronteriza = $zona == 1 ? "Sí" : "No";
-            
-            if ($request->fecha_salida != '' && $request->fecha_salida != null) {
-                $fechaSalida = Carbon::parse($request->fecha_salida)->addHours(24);
-            }
-            
-            $anios_antiguedad = Carbon::parse($request->fecha_ingreso)->floatDiffInYears($fechaSalida);
-            $anioSalida = Carbon::parse($request->fecha_salida)->format('Y');
-            $anios_antiguedad_int = intval($anios_antiguedad);
-    
-            if ($anios_antiguedad == floor($anios_antiguedad)) {
-                $propVacaciones = 1;
-            } else {
-                $propVacaciones = $anios_antiguedad - floor($anios_antiguedad);
-            }
-    
-            $profesion = "-";
-            if ($request->ocupacion_id != '' && $request->ocupacion_id != null) {
-                $salarioMinimo = \DB::table('calculadora_salarios')->where([['id_profesion', $request->ocupacion_id], ['anio', $anioSalida], ['zona', $zona_search]])->value('salario');
-
-                $profesion = \DB::table('calculadora_profesiones')->where([['id', $request->ocupacion_id]])->value('profesion');
-
-                if($salarioMinimo == -1 || $salarioMinimo == null) {
-                    $salarioMinimo = \DB::table('calculadora_salarios')->where([['id_profesion', 1], ['anio', $anioSalida], ['zona', $zona_search]])->value('salario');
-                }
-            } else {
-                $salarioMinimo = \DB::table('calculadora_salarios')->where([['id_profesion', 1], ['anio', $anioSalida], ['zona', $zona_search]])->value('salario');
-            }
-    
-            $datosL = [];
-            $datosL['remuneracionDiaria'] = $this->moneyFormat($remuneracionDiaria);
-            $datosL['antiguedad'] = $anios_antiguedad;
-            $datosL['antiguedadInt'] = $anios_antiguedad;
-            $datosL['salarioMinimo'] = $this->moneyFormat($salarioMinimo);
-            $datosL['zona_fronteriza'] = $zona_fronteriza;
-            $datosL['fechaInicio'] =  Carbon::parse($request->fecha_ingreso)->format('Y-m-d');
-            $datosL['fechaSalida'] = Carbon::parse($request->fecha_salida)->format('Y-m-d');
-            $datosL['profesion'] = $profesion;
-    
-            $propAguinaldo = $this->calculoProporcionAguinaldo($request->fecha_ingreso, Carbon::parse($request->fecha_salida)->format('Y-m-d'));
-    
-            $params = [];
-            $params['anios_antiguedad'] = $anios_antiguedad;
-            $params['propVacaciones'] = $propVacaciones;
-            $params['remuneracionDiaria'] = $remuneracionDiaria;
-            $params['salarioMinimo'] = $salarioMinimo;
-            $params['propAguinaldo'] = $propAguinaldo;
-            $params['anios_antiguedad_int'] = $anios_antiguedad_int;
-            $params['anioSalida'] = $anioSalida;
-            $datosL = $this->calcularPropuestaDatosLaborales($datosL, $params);
-            
-            foreach($datosL["completa"] as &$value) {
-                $value = $this->moneyFormat($value);
-            }
-
-            foreach($datosL["al50"] as &$value) {
-                $value = $this->moneyFormat($value);
-            }
-
-            return $datosL;
-        }
-        catch(\Throwable $e) {
-            $datosL = [];
-            $datosL['error'] = true;
-            $datosL['mensaje'] = 'No se encontraron datos' . $e;
-            
-            return $datosL;
-        }
-    }
-    
     private function calcularPropuestaDatosLaborales($datosL, $data) {
             $anios_antiguedad = $data['anios_antiguedad'];
             $propVacaciones = $data['propVacaciones'];
@@ -373,22 +285,6 @@ class HomeController extends Controller
             return $datosL;
     }
     
-    public function calculoProporcionAguinaldo($fecha_ingreso, $fecha_salida) {
-            $fechaSalida = Carbon::parse($fecha_salida);
-            $fechaIngreso = Carbon::parse($fecha_ingreso);
-    
-            $salidaInicioAnio = Carbon::parse($fecha_salida)->startOfYear();
-            $dias_trabajados = $salidaInicioAnio->diffInDays($fechaSalida->startOfDay()) + 1;
-            $propAguinaldo = $dias_trabajados / 365;
-
-            if ($fechaIngreso->gt($salidaInicioAnio)) {
-                $dias_trabajados = $fechaSalida->diffInDays($fechaIngreso->startOfDay());
-                $propAguinaldo = $dias_trabajados / 365; 
-            }
-
-            return $propAguinaldo;
-    }
-
       /**
      * Vista de despido injustificada continuidad
      */
