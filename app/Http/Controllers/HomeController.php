@@ -223,68 +223,6 @@ class HomeController extends Controller
         return '$' . number_format($amount, 2);
     }
 
-    private function calcularPropuestaDatosLaborales($datosL, $data) {
-            $anios_antiguedad = $data['anios_antiguedad'];
-            $propVacaciones = $data['propVacaciones'];
-            $remuneracionDiaria = $data['remuneracionDiaria'];
-            $salarioMinimo = $data['salarioMinimo'];
-            $propAguinaldo = $data['propAguinaldo'];
-            $anios_antiguedad_int = $data['anios_antiguedad_int'];
-            $anioSalida = $data['anioSalida'];
-            
-            if($anioSalida >= env('VACACIONES_ANIO_VIGENCIA')){
-                $datosL['vac'] = 'calculadora_dias_vacaciones_actual';
-                $diasVacaciones = \DB::table('calculadora_dias_vacaciones_actual')->where('antiguedad', '>=', ceil($anios_antiguedad))->value('dias');
-            } else {
-                $diasVacaciones = \DB::table('calculadora_dias_vacaciones_anterior')->where('antiguedad', '>=', ceil($anios_antiguedad))->value('dias');
-                $datosL['vac'] = 'calculadora_dias_vacaciones_anterior';
-            }
-    
-            $pagoVacaciones = $propVacaciones * $diasVacaciones * $remuneracionDiaria;
-            $salarioTopado = ($remuneracionDiaria > (2 * $salarioMinimo) ? (2 * $salarioMinimo) : $remuneracionDiaria);
-                
-            $total = 0;
-            $completa['indemnizacion'] = round(($remuneracionDiaria * (1 + (15 / 365) + ($diasVacaciones * .25 / 365))) * 90, 2);
-            $total += round(($remuneracionDiaria * (1 + (15 / 365) + ($diasVacaciones * .25 / 365))) * 90, 2);
-            $completa['aguinaldo'] = round($remuneracionDiaria * 15 * $propAguinaldo, 2);
-    
-            $total += round($remuneracionDiaria * 15 * $propAguinaldo, 2);
-            $completa['vacaciones'] = round($pagoVacaciones, 2);
-            $total += round($pagoVacaciones, 2);
-            $completa['prima_vacacional'] = round($pagoVacaciones * 0.25, 2);
-            $total += round($pagoVacaciones * 0.25, 2);
-            $completa['prima_antiguedad'] = round($salarioTopado * $anios_antiguedad * 12, 2);
-            $total += round($salarioTopado * $anios_antiguedad * 12, 2);
-            $gratificacionB = ($anios_antiguedad_int * 20) * $remuneracionDiaria;
-            $completa['gratificacion_b'] = round($gratificacionB);
-            $completa['total'] = round($total, 2);
-            $datosL['completa'] = $completa;
-            $datosL['anios_antiguedad'] = $anios_antiguedad_int;
-    
-            $total = 0;
-            $al50['indemnizacion'] = round(($remuneracionDiaria * (1 + (15 / 365) + ($diasVacaciones * .25 / 365))) * 45, 2);
-            $total += round(($remuneracionDiaria * (1 + (15 / 365) + ($diasVacaciones * .25 / 365))) * 45, 2);
-            $al50['aguinaldo'] = round($remuneracionDiaria * 15 * $propAguinaldo, 2);
-            $total += round($remuneracionDiaria * 15 * $propAguinaldo, 2);
-            $al50['vacaciones'] = round($pagoVacaciones, 2);
-            $total += round($pagoVacaciones, 2);
-            $al50['prima_vacacional'] = round($pagoVacaciones * 0.25, 2);
-            $total += round($pagoVacaciones * 0.25, 2);
-    
-            if ($anios_antiguedad >= 15) {
-                $al50['prima_antiguedad'] = round($salarioTopado * $anios_antiguedad * 12, 2);
-                $total += round($salarioTopado * $anios_antiguedad * 12, 2);
-            } else {
-                $al50['prima_antiguedad'] = round($salarioTopado * $anios_antiguedad * 6, 2);
-                $total += round($salarioTopado * $anios_antiguedad * 6, 2);
-            }
-    
-            $al50['total'] = round($total, 2);
-            $datosL['al50'] = $al50;
-
-            return $datosL;
-    }
-    
       /**
      * Vista de despido injustificada continuidad
      */
