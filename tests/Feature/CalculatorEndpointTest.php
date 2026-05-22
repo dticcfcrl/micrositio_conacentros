@@ -192,4 +192,38 @@ class CalculatorEndpointTest extends TestCase
         $this->assertArrayNotHasKey('error', $data, 'El endpoint no debería devolver error con el caso de QA');
         $this->assertSame('$19,232.00', $data['completa']['vacaciones']);
     }
+
+    public function test_post_borde_antiguedad_justo_por_debajo_de_15_va_por_rama_negociable(): void
+    {
+        // 5474 días entre 2011-01-01 y 2025-12-27 → 14.99726 años → round 4 dec = 14.9973 → < 15
+        $response = $this->postJson(self::RUTA, $this->payloadCasoIssue([
+            'fecha_ingreso' => '2011-01-01',
+            'fecha_salida'  => '2025-12-27',
+        ]));
+
+        $response->assertOk();
+        $data = $response->json();
+
+        $primaCompleta = $this->moneyToFloat($data['completa']['prima_antiguedad']);
+        $prima50 = $this->moneyToFloat($data['al50']['prima_antiguedad']);
+
+        $this->assertEqualsWithDelta($primaCompleta * 0.5, $prima50, 0.05, 'Prima al 50% debe escalar linealmente (rama negociable cuando antigüedad < 15)');
+    }
+
+    public function test_post_borde_antiguedad_exactamente_15_va_por_rama_no_negociable(): void
+    {
+        // 5475 días entre 2011-01-01 y 2025-12-28 → 15.00000 años → round 4 dec = 15.0000 → >= 15
+        $response = $this->postJson(self::RUTA, $this->payloadCasoIssue([
+            'fecha_ingreso' => '2011-01-01',
+            'fecha_salida'  => '2025-12-28',
+        ]));
+
+        $response->assertOk();
+        $data = $response->json();
+
+        $primaCompleta = $this->moneyToFloat($data['completa']['prima_antiguedad']);
+        $prima50 = $this->moneyToFloat($data['al50']['prima_antiguedad']);
+
+        $this->assertEqualsWithDelta($primaCompleta, $prima50, 0.05, 'Prima al 50% debe mantenerse igual (rama no negociable cuando antigüedad >= 15)');
+    }
 }
